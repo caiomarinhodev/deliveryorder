@@ -223,8 +223,8 @@ class Pedido(TimeStamped):
     status_pedido = models.CharField(max_length=100, choices=STATUS, blank=True, null=True, default='AGUARDANDO')
     valor_total = models.CharField(max_length=10)
     troco = models.CharField(max_length=10)
-    forma_pagamento = models.ForeignKey(FormaPagamento, on_delete=models.CASCADE)
-    forma_entrega = models.ForeignKey(FormaEntrega, on_delete=models.CASCADE)
+    forma_pagamento = models.ForeignKey(FormaPagamento, blank=True, null=True, on_delete=models.CASCADE)
+    forma_entrega = models.ForeignKey(FormaEntrega, blank=True, null=True, on_delete=models.CASCADE)
 
     def __unicode__(self):
         return u'%s - %s - %s - %s' % (self.id, self.cliente, self.estabelecimento, self.valor_total)
