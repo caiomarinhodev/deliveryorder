@@ -28,9 +28,8 @@ class LojaRedirectView(RedirectView):
 
 
 class LojaLoginView(FormView):
-    template_name = ''
+    template_name = 'painel/login.html'
     form_class = FormLogin
-    success_url = '/painel'
 
     def form_valid(self, form):
         data = form.cleaned_data
@@ -47,9 +46,26 @@ class LojaLoginView(FormView):
         messages.error(self.request, 'Nenhum usuário encontrado')
         return super(LojaLoginView, self).form_invalid(form)
 
+    def get_success_url(self):
+        """
+        Returns the supplied URL.
+        """
+        url = '/login'
+        try:
+            loja = self.request.user.estabelecimento
+        except:
+            loja = None
+
+        if loja:
+            url = '/dashboard'
+            loja.is_online = True
+            loja.save()
+            self.success_url = url
+        return url
+
 
 class LojaLogoutView(RedirectView):
-    url = '/'
+    url = '/login'
     permanent = False
 
     def get(self, request, *args, **kwargs):

@@ -17,7 +17,15 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 
+from app.views.painel.dashboard.DashboardView import DashboardPedidosListView
+from app.views.painel.login.LoginView import LojaLoginView, LojaLogoutView
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^admin/login/$', auth_views.login),
+
+    url(r'^login/$', LojaLoginView.as_view(), name='login'),
+    url(r'^logout/$', LojaLogoutView.as_view(), name='auth_logout'),
+    url(r'^dashboard/$', DashboardPedidosListView.as_view(), name='dashboard'),
+    # url(r'^$', AppView.as_view(), name='home'),
 ]
