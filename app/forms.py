@@ -3,7 +3,7 @@
 from django import forms
 from django.forms import ModelForm, inlineformset_factory
 
-from app.models import Pedido, Estabelecimento
+from app.models import Pedido, Estabelecimento, Categoria
 
 
 class BaseForm(forms.Form):
@@ -44,10 +44,15 @@ class FormLogin(BaseForm):
                                                                  'placeholder': 'Senha'}))
 
 
-# class FormPedido(ModelForm, BaseForm):
-#     class Meta:
-#         model = Pedido
-#         fields = ['estabelecimento', 'is_draft']
+class FormCategoria(ModelForm, BaseForm):
+    class Meta:
+        model = Categoria
+        fields = ['nome', 'estabelecimento',]
+
+    def __init__(self, *args, **kwargs):
+        super(FormCategoria, self).__init__(*args, **kwargs)
+        self.fields['estabelecimento'].widget.attrs['class'] = 'hidden'
+        self.fields['estabelecimento'].label = ''
 #
 #
 # class FormPonto(ModelForm, BaseForm):

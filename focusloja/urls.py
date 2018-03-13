@@ -19,6 +19,7 @@ from django.contrib.auth import views as auth_views
 
 from app.views.painel.dashboard.DashboardView import DashboardPedidosListView
 from app.views.painel.login.LoginView import LojaLoginView, LojaLogoutView
+from app.views.painel.categoria.CategoriaView import *
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -27,5 +28,10 @@ urlpatterns = [
     url(r'^login/$', LojaLoginView.as_view(), name='login'),
     url(r'^logout/$', LojaLogoutView.as_view(), name='auth_logout'),
     url(r'^dashboard/$', DashboardPedidosListView.as_view(), name='dashboard'),
+
+    url(r'^categoria/add/$', CategoriaCreateView.as_view(), name='add_categoria'),
+    url(r'^categoria/edit/(?P<pk>[0-9]+)/$', CategoriaUpdateView.as_view(), name='edit_categoria'),
+    url(r'^categoria/list/$', CategoriaListView.as_view(), name='list_categoria'),
+    url(r'^categoria/delete/(?P<pk>[0-9]+)/$', CategoriaDeleteView.as_view(), name='delete_categoria'),
     # url(r'^$', AppView.as_view(), name='home'),
 ]

@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$USER_HOME$/delivery/.idea/delivery.iml" filepath="$USER_HOME$/delivery/.idea/delivery.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/focusloja.iml" filepath="$PROJECT_DIR$/.idea/focusloja.iml" />
     </modules>
   </component>

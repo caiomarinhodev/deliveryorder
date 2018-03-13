@@ -1,12 +1,13 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
-from app.models import Categoria
+from app.forms import FormCategoria
+from app.models import Categoria, Estabelecimento
 from app.views.mixins.Mixin import FocusMixin
 
 
 class CategoriaListView(LoginRequiredMixin, ListView, FocusMixin):
-    template_name = ''
+    template_name = 'painel/categoria/list_categoria.html'
     login_url = '/painel/login'
     context_object_name = 'categorias'
     model = Categoria
@@ -20,19 +21,29 @@ class CategoriaListView(LoginRequiredMixin, ListView, FocusMixin):
 class CategoriaCreateView(LoginRequiredMixin, CreateView, FocusMixin):
     login_url = '/painel/login'
     context_object_name = 'categoria'
+    form_class = FormCategoria
     model = Categoria
     success_url = '/categoria/list'
-    template_name = ''
-    # form_class = CategoriaForm
+    template_name = 'painel/categoria/add_categoria.html'
+
+    def get_initial(self):
+        return {
+            'estabelecimento': Estabelecimento.objects.get(usuario=self.request.user)
+        }
 
 
 class CategoriaUpdateView(LoginRequiredMixin, UpdateView, FocusMixin):
     login_url = '/painel/login'
     context_object_name = 'categoria'
     model = Categoria
+    form_class = FormCategoria
     success_url = '/categoria/list'
-    template_name = ''
-    # form_class = CategoriaForm
+    template_name = 'painel/categoria/edit_categoria.html'
+
+    def get_initial(self):
+        return {
+            'estabelecimento': Estabelecimento.objects.get(usuario=self.request.user)
+        }
 
 
 class CategoriaDeleteView(LoginRequiredMixin, DeleteView, FocusMixin):
@@ -40,11 +51,4 @@ class CategoriaDeleteView(LoginRequiredMixin, DeleteView, FocusMixin):
     context_object_name = 'categoria'
     model = Categoria
     success_url = '/categoria/list'
-    template_name = ''
-
-
-class CategoriaDetailView(LoginRequiredMixin, DetailView, FocusMixin):
-    login_url = '/painel/login'
-    context_object_name = 'categoria'
-    model = Categoria
-    template_name = ''
+    template_name = 'painel/categoria/delete_categoria.html'
