@@ -20,6 +20,11 @@ from django.contrib.auth import views as auth_views
 from app.views.painel.dashboard.DashboardView import DashboardPedidosListView
 from app.views.painel.login.LoginView import LojaLoginView, LojaLogoutView
 from app.views.painel.categoria.CategoriaView import *
+from app.views.painel.produto.ProdutoView import *
+from app.views.painel.opcional.OpcionalView import *
+from app.views.painel.foto_produto.FotoProdutoView import *
+from app.views.painel.forma_pagamento.FormaPagamentoView import *
+from app.views.painel.forma_entrega.FormaEntregaView import *
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -33,5 +38,31 @@ urlpatterns = [
     url(r'^categoria/edit/(?P<pk>[0-9]+)/$', CategoriaUpdateView.as_view(), name='edit_categoria'),
     url(r'^categoria/list/$', CategoriaListView.as_view(), name='list_categoria'),
     url(r'^categoria/delete/(?P<pk>[0-9]+)/$', CategoriaDeleteView.as_view(), name='delete_categoria'),
+
+    url(r'^produto/add/$', ProdutoCreateView.as_view(), name='add_produto'),
+    url(r'^produto/edit/(?P<pk>[0-9]+)/$', ProdutoUpdateView.as_view(), name='edit_produto'),
+    url(r'^produto/list/$', ProdutoListView.as_view(), name='list_produto'),
+    url(r'^produto/delete/(?P<pk>[0-9]+)/$', ProdutoDeleteView.as_view(), name='delete_produto'),
+
+    url(r'^opcional/add/$', OpcionalCreateView.as_view(), name='add_opcional'),
+    url(r'^opcional/edit/(?P<pk>[0-9]+)/$', OpcionalUpdateView.as_view(), name='edit_opcional'),
+    url(r'^opcional/list/$', OpcionalListView.as_view(), name='list_opcional'),
+    url(r'^opcional/delete/(?P<pk>[0-9]+)/$', OpcionalDeleteView.as_view(), name='delete_opcional'),
+
+    url(r'^foto/add/$', FotoProdutoCreateView.as_view(), name='add_foto'),
+    url(r'^foto/edit/(?P<pk>[0-9]+)/$', FotoProdutoUpdateView.as_view(), name='edit_foto'),
+    url(r'^foto/list/$', FotoProdutoListView.as_view(), name='list_foto'),
+    url(r'^foto/delete/(?P<pk>[0-9]+)/$', FotoProdutoDeleteView.as_view(), name='delete_foto'),
+
+    url(r'^pagamento/add/$', FormaPagamentoCreateView.as_view(), name='add_pagamento'),
+    url(r'^pagamento/edit/(?P<pk>[0-9]+)/$', FormaPagamentoUpdateView.as_view(), name='edit_pagamento'),
+    url(r'^pagamento/list/$', FormaPagamentoListView.as_view(), name='list_pagamento'),
+    url(r'^pagamento/delete/(?P<pk>[0-9]+)/$', FormaPagamentoDeleteView.as_view(), name='delete_pagamento'),
+
+    url(r'^entrega/add/$', FormaEntregaCreateView.as_view(), name='add_entrega'),
+    url(r'^entrega/edit/(?P<pk>[0-9]+)/$', FormaEntregaUpdateView.as_view(), name='edit_entrega'),
+    url(r'^entrega/list/$', FormaEntregaListView.as_view(), name='list_entrega'),
+    url(r'^entrega/delete/(?P<pk>[0-9]+)/$', FormaEntregaDeleteView.as_view(), name='delete_entrega'),
+
     # url(r'^$', AppView.as_view(), name='home'),
 ]

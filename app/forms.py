@@ -3,7 +3,7 @@
 from django import forms
 from django.forms import ModelForm, inlineformset_factory
 
-from app.models import Pedido, Estabelecimento, Categoria
+from app.models import Pedido, Estabelecimento, Categoria, Produto, FotoProduto, Opcional, FormaPagamento, FormaEntrega
 
 
 class BaseForm(forms.Form):
@@ -47,10 +47,66 @@ class FormLogin(BaseForm):
 class FormCategoria(ModelForm, BaseForm):
     class Meta:
         model = Categoria
-        fields = ['nome', 'estabelecimento',]
+        fields = ['nome', 'estabelecimento', ]
 
     def __init__(self, *args, **kwargs):
         super(FormCategoria, self).__init__(*args, **kwargs)
+        self.fields['estabelecimento'].widget.attrs['class'] = 'hidden'
+        self.fields['estabelecimento'].label = ''
+
+
+class FormProduto(ModelForm, BaseForm):
+    class Meta:
+        model = Produto
+        fields = ['nome', 'preco_base', 'categoria']
+
+
+class FormFotoProdutoInline(ModelForm, BaseForm):
+    class Meta:
+        model = FotoProduto
+        fields = ['url', ]
+
+
+class FormFotoProduto(ModelForm, BaseForm):
+    class Meta:
+        model = FotoProduto
+        fields = ['url', 'produto', ]
+
+
+class FormOpcionalInline(ModelForm, BaseForm):
+    class Meta:
+        model = Opcional
+        fields = ['nome', 'valor', ]
+
+
+class FormOpcional(ModelForm, BaseForm):
+    class Meta:
+        model = Opcional
+        fields = ['nome', 'valor', 'produto', ]
+
+
+FotoProdutoFormSet = inlineformset_factory(Produto, FotoProduto, form=FormFotoProdutoInline, extra=1)
+OpcionalFormSet = inlineformset_factory(Produto, Opcional, form=FormOpcionalInline, extra=1)
+
+
+class FormFormaPagamento(ModelForm, BaseForm):
+    class Meta:
+        model = FormaPagamento
+        fields = ['forma', 'cartao', 'estabelecimento']
+
+    def __init__(self, *args, **kwargs):
+        super(FormFormaPagamento, self).__init__(*args, **kwargs)
+        self.fields['estabelecimento'].widget.attrs['class'] = 'hidden'
+        self.fields['estabelecimento'].label = ''
+
+
+class FormFormaEntrega(ModelForm, BaseForm):
+    class Meta:
+        model = FormaEntrega
+        fields = ['forma', 'estabelecimento', ]
+
+    def __init__(self, *args, **kwargs):
+        super(FormFormaEntrega, self).__init__(*args, **kwargs)
         self.fields['estabelecimento'].widget.attrs['class'] = 'hidden'
         self.fields['estabelecimento'].label = ''
 #

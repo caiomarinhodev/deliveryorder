@@ -10,6 +10,34 @@
             <i class="fa fa-check-square-o"></i> <span>Categorias</span>
         </a>
     </li>
+    <li id="produto">
+        <a href="{% url 'list_produto' %}">
+            <i class="fa fa-sitemap"></i> <span>Produtos</span>
+        </a>
+    </li>
+    <li id="opcional">
+        <a href="{% url 'list_opcional' %}">
+            <i class="fa fa-list-ol"></i> <span>Opcionais</span>
+        </a>
+    </li>
+
+    <li id="foto">
+        <a href="{% url 'list_foto' %}">
+            <i class="fa fa-image"></i> <span>Imagens</span>
+        </a>
+    </li>
+
+    <li id="pagamento">
+        <a href="{% url 'list_pagamento' %}">
+            <i class="fa fa-money"></i> <span>Formas de Pagamento</span>
+        </a>
+    </li>
+
+    <li id="entrega">
+        <a href="{% url 'list_entrega' %}">
+            <i class="fa fa-motorcycle"></i> <span>Formas de Entrega</span>
+        </a>
+    </li>
 
     <li id="logout">
         <a href="{% url "auth_logout" %}">

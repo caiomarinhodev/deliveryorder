@@ -162,7 +162,7 @@ class Opcional(TimeStamped):
 
 class FotoProduto(TimeStamped):
     produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
-    url = models.URLField(blank=True, null=True, default="http://placehold.it/200x200")
+    url = models.URLField(blank=True, null=True)
 
     def __unicode__(self):
         return u'%s' % self.url

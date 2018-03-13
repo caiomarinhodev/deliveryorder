@@ -3,6 +3,7 @@
 
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import redirect
 from django.views.generic import FormView
 from django.views.generic import RedirectView
 
@@ -30,6 +31,15 @@ class LojaRedirectView(RedirectView):
 class LojaLoginView(FormView):
     template_name = 'painel/login.html'
     form_class = FormLogin
+
+    def get(self, request, *args, **kwargs):
+        if self.request.user:
+            loja = self.request.user.estabelecimento
+            if loja:
+                print ('--------- estabelecimento is logged')
+                return redirect('/dashboard')
+        else:
+            return super(LojaLoginView, self).get(request, *args, **kwargs)
 
     def form_valid(self, form):
         data = form.cleaned_data
