@@ -25,6 +25,9 @@ from app.views.painel.opcional.OpcionalView import *
 from app.views.painel.foto_produto.FotoProdutoView import *
 from app.views.painel.forma_pagamento.FormaPagamentoView import *
 from app.views.painel.forma_entrega.FormaEntregaView import *
+from app.views.painel.classificacao.ClassificacaoView import *
+from app.views.painel.notificacao.NotificacaoView import *
+from app.views.loja.HomeView import *
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -63,6 +66,12 @@ urlpatterns = [
     url(r'^entrega/edit/(?P<pk>[0-9]+)/$', FormaEntregaUpdateView.as_view(), name='edit_entrega'),
     url(r'^entrega/list/$', FormaEntregaListView.as_view(), name='list_entrega'),
     url(r'^entrega/delete/(?P<pk>[0-9]+)/$', FormaEntregaDeleteView.as_view(), name='delete_entrega'),
+
+    url(r'^classificacao/list/$', ClassificacaoListView.as_view(), name='list_classificacao'),
+
+    url(r'^notificacao/list/$', NotificacaoListView.as_view(), name='list_notificacao'),
+
+    url(r'^$', HomeView.as_view(), name='home'),
 
     # url(r'^$', AppView.as_view(), name='home'),
 ]

@@ -34,10 +34,14 @@ class LojaLoginView(FormView):
 
     def get(self, request, *args, **kwargs):
         if self.request.user:
-            loja = self.request.user.estabelecimento
-            if loja:
-                print ('--------- estabelecimento is logged')
-                return redirect('/dashboard')
+            try:
+                loja = self.request.user.estabelecimento
+                if loja:
+                    print ('--------- estabelecimento is logged')
+                    return redirect('/dashboard')
+            except (Exception,):
+                return super(LojaLoginView, self).get(request, *args, **kwargs)
+
         else:
             return super(LojaLoginView, self).get(request, *args, **kwargs)
 
