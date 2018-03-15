@@ -73,5 +73,7 @@ urlpatterns = [
 
     url(r'^$', HomeView.as_view(), name='home'),
 
+    url(r'^loja/(?P<pk>[0-9]+)/$', LojaProdutosListView.as_view(), name='view_loja'),
+
     # url(r'^$', AppView.as_view(), name='home'),
 ]

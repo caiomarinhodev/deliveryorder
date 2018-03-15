@@ -1,10 +1,134 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'loja/base.html' %}
+{% load staticfiles %}
 
-</body>
-</html>
+{% block content %}
+    {#    {% include 'carrossel.html' %}#}
+    <section class="bar background-white no-mb">
+        <div class="container">
+            <div class="heading text-center">
+                <h2>Peça Comida Online!</h2>
+            </div>
+            <div class="row">
+                <div id="basket" class="col-lg-9">
+                    <div class="row">
+                        <ul class="nav nav-pills nav-fill">
+                            {% for categoria in loja.categoria_set.all %}
+                                <li><a href="#{{ categoria.pk }}" data-toggle="tab"
+                                       aria-expanded="true">{{ categoria.nome }}</a></li>
+                            {% endfor %}
+                        </ul>
+                        <div id="myTabContent" class="tab-content">
+                            {% for categoria in loja.categoria_set.all %}
+                                {% for produto in categoria.produto_set.all %}
+
+                                    <div class="tab-pane fade" id="{{ categoria.pk }}">
+                                        <div class="row">
+                                            <a href="#">
+                                                <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2">
+                                                    <div class="thumbnail" style="height: 180px; width: 180px;">
+                                                        <img title="{{ produto.nome }}"
+                                                             alt="{{ produto.nome }}"
+                                                             src="{{ produto.fotoproduto_set.first }}"
+                                                             style="height: 170px; width: 170px;"
+                                                        />
+                                                        <div class="caption text-center">
+                                                            <h4>{{ produto.nome }}</h4>
+                                                            <p>R$ {{ produto.preco_base }}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
+
+                        <script>
+                            $(document).ready(function () {
+                                $('.tab-pane').first().addClass('active in');
+                                $("li").index(7).addClass('active');
+                            });
+                        </script>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div id="order-summary" class="box mt-0 mb-4 p-0">
+                        <div class="box-header mt-0">
+                            <h3>Meu Pedido</h3>
+                        </div>
+                        <p class="text-muted">Shipping and additional costs are calculated based on the values you have
+                            entered.</p>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <tbody>
+                                <tr>
+                                    <td>Order subtotal</td>
+                                    <th>$446.00</th>
+                                </tr>
+                                <tr>
+                                    <td>Shipping and handling</td>
+                                    <th>$10.00</th>
+                                </tr>
+                                <tr>
+                                    <td>Tax</td>
+                                    <th>$0.00</th>
+                                </tr>
+                                <tr class="total">
+                                    <td>Total</td>
+                                    <th>$456.00</th>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="box box mt-0 mb-4 p-0">
+                        <div class="box-header mt-0">
+                            <h4>Localização</h4>
+                        </div>
+                        <p class="text-muted">If you have a coupon code, please enter it in the box below.</p>
+                        <form>
+                            <div class="input-group">
+                                <input type="text" class="form-control"><span class="input-group-btn">
+                      <button type="button" class="btn btn-template-main"><i class="fa fa-gift"></i></button></span>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="box box mt-0 mb-4 p-0">
+                        <div class="box-header mt-0">
+                            <h4>Entrega</h4>
+                        </div>
+                        <p class="text-muted">If you have a coupon code, please enter it in the box below.</p>
+                        <form>
+                            <div class="input-group">
+                                <input type="text" class="form-control"><span class="input-group-btn">
+                      <button type="button" class="btn btn-template-main"><i class="fa fa-gift"></i></button></span>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="box box mt-0 mb-4 p-0">
+                        <div class="box-header mt-0">
+                            <h4>Formas de Pagamento</h4>
+                        </div>
+                        <p class="text-muted">If you have a coupon code, please enter it in the box below.</p>
+                        <form>
+                            <div class="input-group">
+                                <input type="text" class="form-control"><span class="input-group-btn">
+                      <button type="button" class="btn btn-template-main"><i class="fa fa-gift"></i></button></span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#inicio').addClass('active');
+        });
+    </script>
+
+{% endblock %}

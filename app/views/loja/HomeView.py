@@ -12,7 +12,8 @@ class HomeView(ListView):
         return Estabelecimento.objects.all()
 
 
-class ProdutoDetailView(DetailView):
-    template_name = ''
+class LojaProdutosListView(DetailView):
+    template_name = 'loja/view_produtos.html'
     context_object_name = 'loja'
     model = Estabelecimento
+    pk_url_kwarg = 'pk'
