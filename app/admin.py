@@ -80,7 +80,10 @@ class BairroAdmin(admin.ModelAdmin):
 
 
 class CategoriaAdmin(admin.ModelAdmin):
-    list_display = ('nome', 'id', 'estabelecimento', 'created_at',)
+    list_display = ('nome', 'produtos_relacionados', 'id', 'estabelecimento', 'created_at',)
+
+    def produtos_relacionados(self, obj):
+        return obj.produto_set.count()
 
 
 class ProdutoAdmin(admin.ModelAdmin):

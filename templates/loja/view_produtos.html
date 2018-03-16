@@ -9,51 +9,52 @@
                 <h2>Peça Comida Online!</h2>
             </div>
             <div class="row">
-                <div id="basket" class="col-lg-9">
+                <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
                     <div class="row">
                         <ul class="nav nav-pills nav-fill">
                             {% for categoria in loja.categoria_set.all %}
-                                <li><a href="#{{ categoria.pk }}" data-toggle="tab"
+                                <li><a href="#cat-{{ categoria.pk }}" data-toggle="tab"
                                        aria-expanded="true">{{ categoria.nome }}</a></li>
                             {% endfor %}
                         </ul>
                         <div id="myTabContent" class="tab-content">
-                            {% for categoria in loja.categoria_set.all %}
-                                {% for produto in categoria.produto_set.all %}
-
-                                    <div class="tab-pane fade" id="{{ categoria.pk }}">
+                            {% for cat in loja.categoria_set.all %}
+                                {% if cat.produto_set.first %}
+                                    <div class="tab-pane" id="cat-{{ cat.pk }}">
                                         <div class="row">
-                                            <a href="#">
-                                                <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2">
-                                                    <div class="thumbnail" style="height: 180px; width: 180px;">
-                                                        <img title="{{ produto.nome }}"
-                                                             alt="{{ produto.nome }}"
-                                                             src="{{ produto.fotoproduto_set.first }}"
-                                                             style="height: 170px; width: 170px;"
-                                                        />
-                                                        <div class="caption text-center">
-                                                            <h4>{{ produto.nome }}</h4>
-                                                            <p>R$ {{ produto.preco_base }}</p>
+                                            {% for produto in cat.produto_set.all %}
+                                                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" style="margin-bottom: 50px;">
+                                                    <a href="#">
+                                                        <div class="thumbnail" style="height: 180px; width: 180px;">
+                                                            <img title="{{ produto.nome }}"
+                                                                 alt="{{ produto.nome }}"
+                                                                 src="{{ produto.fotoproduto_set.first }}"
+                                                                 style="height: 170px; width: 170px;"
+                                                            />
+                                                            <div class="caption text-center">
+                                                                <h4>{{ produto.nome }}</h4>
+                                                                <p>R$ {{ produto.preco_base }}</p>
+                                                            </div>
                                                         </div>
-                                                    </div>
+                                                    </a>
                                                 </div>
-                                            </a>
+                                            {% endfor %}
                                         </div>
                                     </div>
+                                {% endif %}
 
-                                {% endfor %}
                             {% endfor %}
                         </div>
 
                         <script>
                             $(document).ready(function () {
                                 $('.tab-pane').first().addClass('active in');
-                                $("li").index(7).addClass('active');
+                                $(".nav-pills>li").first().addClass('active');
                             });
                         </script>
                     </div>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                     <div id="order-summary" class="box mt-0 mb-4 p-0">
                         <div class="box-header mt-0">
                             <h3>Meu Pedido</h3>
@@ -91,7 +92,7 @@
                         <form>
                             <div class="input-group">
                                 <input type="text" class="form-control"><span class="input-group-btn">
-                      <button type="button" class="btn btn-template-main"><i class="fa fa-gift"></i></button></span>
+                                <button type="button" class="btn btn-template-main"><i class="fa fa-gift"></i></button></span>
                             </div>
                         </form>
                     </div>
