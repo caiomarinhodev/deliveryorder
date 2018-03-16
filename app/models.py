@@ -138,6 +138,7 @@ class Categoria(TimeStamped):
 
 class Produto(TimeStamped):
     nome = models.CharField(max_length=100)
+    descricao = models.TextField(default="")
     preco_base = models.CharField(max_length=10)
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
 

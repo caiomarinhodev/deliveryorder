@@ -3,7 +3,8 @@
 from django import forms
 from django.forms import ModelForm, inlineformset_factory
 
-from app.models import Pedido, Estabelecimento, Categoria, Produto, FotoProduto, Opcional, FormaPagamento, FormaEntrega
+from app.models import Pedido, Estabelecimento, Categoria, Produto, FotoProduto, Opcional, FormaPagamento, FormaEntrega, \
+    Cliente
 
 
 class BaseForm(forms.Form):
@@ -109,7 +110,33 @@ class FormFormaEntrega(ModelForm, BaseForm):
         super(FormFormaEntrega, self).__init__(*args, **kwargs)
         self.fields['estabelecimento'].widget.attrs['class'] = 'hidden'
         self.fields['estabelecimento'].label = ''
-#
+
+
+class FormRegisterCliente(ModelForm, BaseForm):
+    nome = forms.CharField(widget=forms.TextInput(attrs={'required': True,
+                                                             'maxlength': 100,
+                                                             'placeholder': 'Nome'}))
+    sobrenome = forms.CharField(widget=forms.TextInput(attrs={'required': True,
+                                                             'maxlength': 100,
+                                                             'placeholder': 'Sobrenome'}))
+    senha = forms.CharField(widget=forms.PasswordInput(attrs={'required': True,
+                                                                 'placeholder': 'Senha'}))
+    class Meta:
+        model = Cliente
+        fields = ['cpf', 'telefone', 'usuario']
+
+    def __init__(self, *args, **kwargs):
+        super(FormRegisterCliente, self).__init__(*args, **kwargs)
+        self.fields['usuario'].widget.attrs['class'] = 'hidden'
+        self.fields['usuario'].label = ''
+
+
+class FormLoginCliente(BaseForm):
+    cpf = forms.CharField(widget=forms.TextInput(attrs={'required': True,
+                                                             'maxlength': 12,
+                                                             'placeholder': 'CPF'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'required': True,
+                                                                 'placeholder': 'Senha'}))
 #
 # class FormPonto(ModelForm, BaseForm):
 #     telefone = forms.CharField(widget=forms.TextInput(attrs={'required': True, 'class': 'telefone',
