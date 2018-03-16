@@ -17,6 +17,7 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 
+from app.views.loja.LoginView import *
 from app.views.painel.dashboard.DashboardView import DashboardPedidosListView
 from app.views.painel.login.LoginView import LojaLoginView, LojaLogoutView
 from app.views.painel.categoria.CategoriaView import *
@@ -75,5 +76,8 @@ urlpatterns = [
 
     url(r'^loja/(?P<pk>[0-9]+)/$', LojaProdutosListView.as_view(), name='view_loja'),
 
+    url(r'^define/login/$', EscolheLoginView.as_view(), name='choose_login'),
+    url(r'^login/cliente/$', ClienteLoginView.as_view(), name='login_cliente'),
+    url(r'^registro/cliente', RegistroCliente.as_view(), name='registro_cliente'),
     # url(r'^$', AppView.as_view(), name='home'),
 ]

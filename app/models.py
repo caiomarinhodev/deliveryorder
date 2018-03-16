@@ -60,7 +60,7 @@ PLANS = (
 
 class Cliente(TimeStamped, BaseAddress):
     usuario = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
-    cpf = models.CharField(max_length=100, blank=True, null=True, default="", unique=True)
+    cpf = models.CharField(max_length=12, blank=True, null=True, default="", unique=True)
     foto = models.URLField(blank=True, null=True, default="http://placehold.it/100x100")
     telefone = models.CharField(max_length=30, blank=True, null=True)
     is_online = models.BooleanField(default=False)

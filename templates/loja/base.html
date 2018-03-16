@@ -114,17 +114,7 @@
             });
         });
 
-        $('[name=cpf]').attr('type', 'number');
-        $('[name=telefone]').attr('type', 'number');
 
-
-        $('[name=cpf]').focusout(function () {
-            var cpf = $(this).val();
-            if (!valida_cpf(cpf)) {
-                $('#loading').hide();
-                swal("CPF Inválido", "Insira um CPF válido", "error");
-            }
-        });
     });
 
 

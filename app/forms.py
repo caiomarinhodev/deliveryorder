@@ -112,23 +112,23 @@ class FormFormaEntrega(ModelForm, BaseForm):
         self.fields['estabelecimento'].label = ''
 
 
-class FormRegisterCliente(ModelForm, BaseForm):
+class FormRegisterCliente(BaseForm):
     nome = forms.CharField(widget=forms.TextInput(attrs={'required': True,
                                                              'maxlength': 100,
                                                              'placeholder': 'Nome'}))
     sobrenome = forms.CharField(widget=forms.TextInput(attrs={'required': True,
                                                              'maxlength': 100,
                                                              'placeholder': 'Sobrenome'}))
-    senha = forms.CharField(widget=forms.PasswordInput(attrs={'required': True,
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'required': True,
                                                                  'placeholder': 'Senha'}))
-    class Meta:
-        model = Cliente
-        fields = ['cpf', 'telefone', 'usuario']
+    telefone = forms.CharField(widget=forms.TextInput(attrs={'required': True,
+                                                              'maxlength': 15,
+                                                              'placeholder': 'Telefone'}))
 
-    def __init__(self, *args, **kwargs):
-        super(FormRegisterCliente, self).__init__(*args, **kwargs)
-        self.fields['usuario'].widget.attrs['class'] = 'hidden'
-        self.fields['usuario'].label = ''
+    cpf = forms.CharField(widget=forms.TextInput(attrs={'required': True,
+                                                        'maxlength': 12,
+                                                        'placeholder': 'CPF'}))
+
 
 
 class FormLoginCliente(BaseForm):

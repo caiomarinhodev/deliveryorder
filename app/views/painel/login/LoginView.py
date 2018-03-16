@@ -79,14 +79,20 @@ class LojaLoginView(FormView):
 
 
 class LojaLogoutView(RedirectView):
-    url = '/login'
+    url = '/define/login'
     permanent = False
 
     def get(self, request, *args, **kwargs):
         user = self.request.user
-        loja = user.estabelecimento
-        if loja:
-            loja.is_online = False
-            loja.save()
+        try:
+            loja = user.estabelecimento
+            if loja:
+                loja.is_online = False
+                loja.save()
+        except (Exception, ):
+            cliente = user.cliente
+            if cliente:
+                cliente.is_online = False
+                cliente.save()
         logout(self.request)
         return super(LojaLogoutView, self).get(request, *args, **kwargs)

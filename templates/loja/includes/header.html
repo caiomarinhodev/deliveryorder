@@ -40,7 +40,7 @@
                                         <span class="hidden-xs text-uppercase">Log out</span></a>
                                 </div>
                             {% else %}
-                                <a href="{% url "login" %}"><i class="fa fa-sign-in"></i>
+                                <a href="{% url "choose_login" %}"><i class="fa fa-sign-in"></i>
                                     <span class="hidden-xs text-uppercase">Log in ou Registro</span></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             {% endif %}
                         </div>
@@ -121,7 +121,7 @@ _________________________________________________________ -->
                             {% endif %}
                         {% else %}
                             <li id="login">
-                                <a id="login" href="{% url 'login' %}">Login</a>
+                                <a id="login" href="{% url 'choose_login' %}">Login</a>
                             </li>
                         {% endif %}
                     </ul>
