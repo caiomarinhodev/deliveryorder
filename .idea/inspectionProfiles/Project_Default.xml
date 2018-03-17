@@ -1,0 +1,42 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyCompatibilityInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ourVersions">
+        <value>
+          <list size="2">
+            <item index="0" class="java.lang.String" itemvalue="2.7" />
+            <item index="1" class="java.lang.String" itemvalue="3.6" />
+          </list>
+        </value>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <value>
+          <list size="19">
+            <item index="0" class="java.lang.String" itemvalue="coverage" />
+            <item index="1" class="java.lang.String" itemvalue="django-compressor" />
+            <item index="2" class="java.lang.String" itemvalue="Django" />
+            <item index="3" class="java.lang.String" itemvalue="pyyaml" />
+            <item index="4" class="java.lang.String" itemvalue="jinja2" />
+            <item index="5" class="java.lang.String" itemvalue="async_timeout" />
+            <item index="6" class="java.lang.String" itemvalue="voluptuous" />
+            <item index="7" class="java.lang.String" itemvalue="typing" />
+            <item index="8" class="java.lang.String" itemvalue="aiohttp" />
+            <item index="9" class="java.lang.String" itemvalue="pytz" />
+            <item index="10" class="java.lang.String" itemvalue="Pillow" />
+            <item index="11" class="java.lang.String" itemvalue="sqlalchemy" />
+            <item index="12" class="java.lang.String" itemvalue="pyflakes" />
+            <item index="13" class="java.lang.String" itemvalue="selenium" />
+            <item index="14" class="java.lang.String" itemvalue="pylint" />
+            <item index="15" class="java.lang.String" itemvalue="pep8" />
+            <item index="16" class="java.lang.String" itemvalue="pep8-naming" />
+            <item index="17" class="java.lang.String" itemvalue="pylint-django" />
+            <item index="18" class="java.lang.String" itemvalue="flake8" />
+          </list>
+        </value>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>

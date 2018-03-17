@@ -4,7 +4,7 @@ from django import forms
 from django.forms import ModelForm, inlineformset_factory
 
 from app.models import Pedido, Estabelecimento, Categoria, Produto, FotoProduto, Opcional, FormaPagamento, FormaEntrega, \
-    Cliente
+    Cliente, Endereco, Grupo
 
 
 class BaseForm(forms.Form):
@@ -56,6 +56,34 @@ class FormCategoria(ModelForm, BaseForm):
         self.fields['estabelecimento'].label = ''
 
 
+class FormEndereco(ModelForm, BaseForm):
+    class Meta:
+        model = Endereco
+        fields = ['endereco', 'numero', 'bairro', 'complemento', 'cliente']
+
+    def __init__(self, *args, **kwargs):
+        super(FormEndereco, self).__init__(*args, **kwargs)
+        self.fields['cliente'].widget.attrs['class'] = 'hidden'
+        self.fields['cliente'].label = ''
+
+
+class FormGrupo(ModelForm, BaseForm):
+    class Meta:
+        model = Grupo
+        fields = ['identificador', 'titulo', 'produto', 'limitador', ]
+
+    def __init__(self, *args, **kwargs):
+        super(FormGrupo, self).__init__(*args, **kwargs)
+        self.fields['produto'].widget.attrs['class'] = 'hidden'
+        self.fields['produto'].label = ''
+
+
+class FormGrupoInline(ModelForm, BaseForm):
+    class Meta:
+        model = Grupo
+        fields = ['identificador', 'titulo', 'limitador', ]
+
+
 class FormProduto(ModelForm, BaseForm):
     class Meta:
         model = Produto
@@ -83,11 +111,12 @@ class FormOpcionalInline(ModelForm, BaseForm):
 class FormOpcional(ModelForm, BaseForm):
     class Meta:
         model = Opcional
-        fields = ['nome', 'valor', 'produto', ]
+        fields = ['nome', 'valor', 'grupo', ]
 
 
 FotoProdutoFormSet = inlineformset_factory(Produto, FotoProduto, form=FormFotoProdutoInline, extra=1)
-OpcionalFormSet = inlineformset_factory(Produto, Opcional, form=FormOpcionalInline, extra=1)
+GrupoFormSet = inlineformset_factory(Produto, Grupo, form=FormGrupoInline, extra=1)
+OpcionalFormSet = inlineformset_factory(Grupo, Opcional, form=FormOpcionalInline, extra=1)
 
 
 class FormFormaPagamento(ModelForm, BaseForm):
@@ -114,29 +143,29 @@ class FormFormaEntrega(ModelForm, BaseForm):
 
 class FormRegisterCliente(BaseForm):
     nome = forms.CharField(widget=forms.TextInput(attrs={'required': True,
-                                                             'maxlength': 100,
-                                                             'placeholder': 'Nome'}))
+                                                         'maxlength': 100,
+                                                         'placeholder': 'Nome'}))
     sobrenome = forms.CharField(widget=forms.TextInput(attrs={'required': True,
-                                                             'maxlength': 100,
-                                                             'placeholder': 'Sobrenome'}))
+                                                              'maxlength': 100,
+                                                              'placeholder': 'Sobrenome'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'required': True,
                                                                  'placeholder': 'Senha'}))
     telefone = forms.CharField(widget=forms.TextInput(attrs={'required': True,
-                                                              'maxlength': 15,
-                                                              'placeholder': 'Telefone'}))
+                                                             'maxlength': 15,
+                                                             'placeholder': 'Telefone'}))
 
     cpf = forms.CharField(widget=forms.TextInput(attrs={'required': True,
                                                         'maxlength': 12,
                                                         'placeholder': 'CPF'}))
 
 
-
 class FormLoginCliente(BaseForm):
     cpf = forms.CharField(widget=forms.TextInput(attrs={'required': True,
-                                                             'maxlength': 12,
-                                                             'placeholder': 'CPF'}))
+                                                        'maxlength': 12,
+                                                        'placeholder': 'CPF'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'required': True,
                                                                  'placeholder': 'Senha'}))
+
 #
 # class FormPonto(ModelForm, BaseForm):
 #     telefone = forms.CharField(widget=forms.TextInput(attrs={'required': True, 'class': 'telefone',

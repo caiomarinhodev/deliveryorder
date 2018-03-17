@@ -13,6 +13,18 @@ class ItemPedidoInline(admin.TabularInline):
     model = ItemPedido
 
 
+class GrupoInline(admin.TabularInline):
+    model = Grupo
+
+
+class OpcionalInline(admin.TabularInline):
+    model = Opcional
+
+
+class EnderecoInline(admin.TabularInline):
+    model = Endereco
+
+
 class OpcionalChoiceInline(admin.TabularInline):
     model = OpcionalChoice
 
@@ -45,8 +57,9 @@ class FotoProdutoAdmin(admin.ModelAdmin):
 
 
 class ClienteAdmin(admin.ModelAdmin):
+    inlines = [EnderecoInline, ]
     list_display = (
-        'id', 'usuario', 'qtd_pedidos', 'cpf', 'telefone', 'endereco', 'bairro', 'numero', 'email_cliente', 'is_online',
+        'id', 'usuario', 'qtd_pedidos', 'cpf', 'telefone', 'email_cliente', 'is_online',
         'created_at')
 
     def email_cliente(self, obj):
@@ -56,8 +69,12 @@ class ClienteAdmin(admin.ModelAdmin):
         return obj.pedido_set.all()
 
 
+class EnderecoAdmin(admin.ModelAdmin):
+    list_display = ('cliente', 'endereco', 'numero', 'bairro', 'complemento')
+
+
 class EstabelecimentoAdmin(admin.ModelAdmin):
-    list_display = ('id', 'nome_loja', 'usuario', 'telefone', 'endereco_completo', 'is_online', 'created_at')
+    list_display = ('id', 'nome_loja', 'cnpj', 'usuario', 'telefone', 'endereco_completo', 'is_online', 'created_at', 'esta_aprovada')
 
     def nome_loja(self, obj):
         return obj.usuario.first_name
@@ -79,6 +96,14 @@ class BairroAdmin(admin.ModelAdmin):
     list_display = ('nome', 'id', 'created_at')
 
 
+class GrupoAdmin(admin.ModelAdmin):
+    list_display = ('identificador', 'id', 'titulo', 'produto', 'limitador', 'estabelecimento', 'created_at')
+    inlines = [OpcionalInline, ]
+
+    def estabelecimento(self, obj):
+        return obj.produto.categoria.estabelecimento
+
+
 class CategoriaAdmin(admin.ModelAdmin):
     list_display = ('nome', 'produtos_relacionados', 'id', 'estabelecimento', 'created_at',)
 
@@ -89,6 +114,7 @@ class CategoriaAdmin(admin.ModelAdmin):
 class ProdutoAdmin(admin.ModelAdmin):
     inlines = [
         FotoProdutoInline,
+        GrupoInline,
     ]
     list_display = ('nome', 'id', 'preco_base', 'categoria', 'created_at', 'estabelecimento')
 
@@ -117,11 +143,15 @@ class FormaPagamentoAdmin(admin.ModelAdmin):
 class FormaEntregaAdmin(admin.ModelAdmin):
     list_display = ('forma', 'id', 'estabelecimento', 'created_at',)
 
+
 class OpcionalAdmin(admin.ModelAdmin):
     list_display = ('nome', 'id', 'produto', 'valor', 'estabelecimento', 'created_at',)
 
     def estabelecimento(self, obj):
         return obj.produto.categoria.estabelecimento
+
+    def produto(self, obj):
+        return obj.grupo.produto
 
 
 admin.site.register(Classificacao, ClassificacaoAdmin)
@@ -139,3 +169,5 @@ admin.site.register(FormaPagamento, FormaPagamentoAdmin)
 admin.site.register(FormaEntrega, FormaEntregaAdmin)
 admin.site.register(OpcionalChoice, OpcionalChoiceAdmin)
 admin.site.register(Opcional, OpcionalAdmin)
+admin.site.register(Grupo, GrupoAdmin)
+admin.site.register(Endereco, EnderecoAdmin)

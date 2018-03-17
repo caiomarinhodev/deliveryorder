@@ -15,7 +15,7 @@ class OpcionalListView(LoginRequiredMixin, ListView, FocusMixin):
 
     def get_queryset(self):
         est = self.request.user.estabelecimento
-        return Opcional.objects.filter(produto__categoria__estabelecimento=est)
+        return Opcional.objects.filter(grupo__produto__categoria__estabelecimento=est)
 
 
 class OpcionalCreateView(LoginRequiredMixin, CreateView, FocusMixin):

@@ -20,12 +20,12 @@
                     </div>
                 </div>
                 <hr/>
-                <h3>Opcionais</h3>
+                <h3>Grupos</h3>
                 <div class="row">
                     <div class="col-md-12">
-                     {{ opcionalset.management_form }}
+                     {{ gruposet.management_form }}
                         <table class="table">
-                            {% for form in opcionalset.forms %}
+                            {% for form in gruposet.forms %}
                                 {% if forloop.first %}
                                     <thead>
                                     <tr>
@@ -35,7 +35,7 @@
                                     </tr>
                                     </thead>
                                 {% endif %}
-                                <tr class="opcionalset_row">
+                                <tr class="gruposet_row">
                                     {% for field in form.visible_fields %}
                                         <td>
                                             {# Include the hidden fields in the form #}
@@ -53,10 +53,10 @@
                         </table>
                         <script src="{% static 'js/jquery.formset.js' %}"></script>
                         <script type="text/javascript">
-                            $('.opcionalset_row').formset({
+                            $('.gruposet_row').formset({
                                 addText: 'Adicionar',
                                 deleteText: 'Remover',
-                                prefix: 'opcional_set'
+                                prefix: 'grupo_set'
                             });
                         </script>
                     </div>

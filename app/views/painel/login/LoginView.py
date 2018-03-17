@@ -21,7 +21,7 @@ class LojaRedirectView(RedirectView):
                 loja = Estabelecimento.objects.get(user=self.request.user)
                 if loja:
                     print ('--------- estabelecimento is logged')
-                    return '/painel/'
+                    return '/dashboard/'
             except:
                 return '/login'
         else:
@@ -50,14 +50,19 @@ class LojaLoginView(FormView):
         user = authenticate(**data)
         print(user)
         if user is not None:
-            login(self.request, user)
+            if user.estabelecimento.esta_aprovada:
+                login(self.request, user)
+            else:
+                messages.error(self.request, 'Sua conta ainda está para ser aprovada')
+                return self.form_invalid(form)
+
         else:
+            messages.error(self.request, 'Nenhum usuário encontrado')
             return self.form_invalid(form)
         return super(LojaLoginView, self).form_valid(form)
 
     def form_invalid(self, form):
         print(form.errors)
-        messages.error(self.request, 'Nenhum usuário encontrado')
         return super(LojaLoginView, self).form_invalid(form)
 
     def get_success_url(self):

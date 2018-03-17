@@ -22,23 +22,29 @@ class FormaEntregaCreateView(LoginRequiredMixin, CreateView, FocusMixin):
     login_url = '/painel/login'
     context_object_name = 'formaentrega'
     model = FormaEntrega
-    success_url = '/formaentrega/list'
+    success_url = '/entrega/list'
     template_name = 'painel/forma_entrega/add.html'
     form_class = FormFormaEntrega
+
+    def get_initial(self):
+        return {'estabelecimento': self.request.user.estabelecimento}
 
 
 class FormaEntregaUpdateView(LoginRequiredMixin, UpdateView, FocusMixin):
     login_url = '/painel/login'
     context_object_name = 'formaentrega'
     model = FormaEntrega
-    success_url = '/formaentrega/list'
+    success_url = '/entrega/list'
     template_name = 'painel/forma_entrega/edit.html'
     form_class = FormFormaEntrega
+
+    def get_initial(self):
+        return {'estabelecimento': self.request.user.estabelecimento}
 
 
 class FormaEntregaDeleteView(LoginRequiredMixin, DeleteView, FocusMixin):
     login_url = '/painel/login'
     context_object_name = 'formaentrega'
     model = FormaEntrega
-    success_url = '/formaentrega/list'
+    success_url = '/entrega/list'
     template_name = 'painel/forma_entrega/delete.html'

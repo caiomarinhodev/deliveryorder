@@ -28,7 +28,9 @@ from app.views.painel.forma_pagamento.FormaPagamentoView import *
 from app.views.painel.forma_entrega.FormaEntregaView import *
 from app.views.painel.classificacao.ClassificacaoView import *
 from app.views.painel.notificacao.NotificacaoView import *
+from app.views.painel.grupo.GrupoView import *
 from app.views.loja.HomeView import *
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -47,6 +49,11 @@ urlpatterns = [
     url(r'^produto/edit/(?P<pk>[0-9]+)/$', ProdutoUpdateView.as_view(), name='edit_produto'),
     url(r'^produto/list/$', ProdutoListView.as_view(), name='list_produto'),
     url(r'^produto/delete/(?P<pk>[0-9]+)/$', ProdutoDeleteView.as_view(), name='delete_produto'),
+
+    url(r'^grupo/add/$', GrupoCreateView.as_view(), name='add_grupo'),
+    url(r'^grupo/edit/(?P<pk>[0-9]+)/$', GrupoUpdateView.as_view(), name='edit_grupo'),
+    url(r'^grupo/list/$', GrupoListView.as_view(), name='list_grupo'),
+    url(r'^grupo/delete/(?P<pk>[0-9]+)/$', GrupoDeleteView.as_view(), name='delete_grupo'),
 
     url(r'^opcional/add/$', OpcionalCreateView.as_view(), name='add_opcional'),
     url(r'^opcional/edit/(?P<pk>[0-9]+)/$', OpcionalUpdateView.as_view(), name='edit_opcional'),

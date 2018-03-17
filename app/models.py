@@ -58,7 +58,7 @@ PLANS = (
 )
 
 
-class Cliente(TimeStamped, BaseAddress):
+class Cliente(TimeStamped,):
     usuario = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
     cpf = models.CharField(max_length=12, blank=True, null=True, default="", unique=True)
     foto = models.URLField(blank=True, null=True, default="http://placehold.it/100x100")
@@ -66,13 +66,6 @@ class Cliente(TimeStamped, BaseAddress):
     is_online = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
-        try:
-            endereco = self.endereco + ", " + self.numero + ",Campina Grande,PB"
-            pto = geocode(endereco)
-            self.lat = pto['latitude']
-            self.lng = pto['longitude']
-        except (Exception,):
-            pass
         super(Cliente, self).save(*args, **kwargs)
 
     def __str__(self):
@@ -82,12 +75,37 @@ class Cliente(TimeStamped, BaseAddress):
         return u'%s %s' % (self.usuario.first_name, self.usuario.last_name)
 
 
+class Endereco(TimeStamped, BaseAddress):
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    endereco_completo = models.CharField(max_length=300, blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        try:
+            endereco = self.endereco + ", " + self.numero + ",Campina Grande,PB"
+            self.endereco_completo = endereco
+            pto = geocode(endereco)
+            self.lat = pto['latitude']
+            self.lng = pto['longitude']
+        except (Exception,):
+            endereco = self.endereco + ", " + self.numero + ",Campina Grande,PB"
+            self.endereco_completo = endereco
+        super(Endereco, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return u'%s' % self.endereco_completo
+
+    def __unicode__(self):
+        return u'%s' % self.endereco_completo
+
+
 class Estabelecimento(TimeStamped, BaseAddress):
     usuario = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
     foto = models.URLField(blank=True, null=True, default="http://placehold.it/100x100")
     telefone = models.CharField(max_length=30, blank=True)
     is_online = models.BooleanField(default=False)
+    cnpj = models.CharField(max_length=50, blank=True, null=True)
     endereco_completo = models.CharField(max_length=300, blank=True, null=True)
+    esta_aprovada = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
         try:
@@ -99,7 +117,8 @@ class Estabelecimento(TimeStamped, BaseAddress):
             self.lat = pto['latitude']
             self.lng = pto['longitude']
         except (Exception,):
-            pass
+            endereco = self.endereco + ", " + self.numero + ",Campina Grande,PB"
+            self.endereco_completo = endereco
         super(Estabelecimento, self).save(*args, **kwargs)
 
     def __unicode__(self):
@@ -108,13 +127,13 @@ class Estabelecimento(TimeStamped, BaseAddress):
     def __str__(self):
         return u'%s %s' % (self.usuario.first_name, self.usuario.last_name)
 
-    # class Meta:
-    #     permissions = (
-    #         ("view_dashboard_1", "Loja pode ver o dashboard loja tipo 1"),
-    #         ("view_dashboard_2", "Loja pode ver o dashboard loja tipo 2"),
-    #         ("view_dashboard_3", "Loja pode ver o dashboard loja tipo 3"),
-    #         ("view_chat", "Loja pode interagir no Chat"),
-    #     )
+        # class Meta:
+        #     permissions = (
+        #         ("view_dashboard_1", "Loja pode ver o dashboard loja tipo 1"),
+        #         ("view_dashboard_2", "Loja pode ver o dashboard loja tipo 2"),
+        #         ("view_dashboard_3", "Loja pode ver o dashboard loja tipo 3"),
+        #         ("view_chat", "Loja pode interagir no Chat"),
+        #     )
 
 
 STATUS = (
@@ -126,7 +145,7 @@ STATUS = (
 
 
 class Categoria(TimeStamped):
-    estabelecimento = models.ForeignKey(Estabelecimento)
+    estabelecimento = models.ForeignKey(Estabelecimento, on_delete=models.CASCADE)
     nome = models.CharField(max_length=100)
 
     def __unicode__(self):
@@ -149,9 +168,33 @@ class Produto(TimeStamped):
         return u'%s' % self.nome
 
 
+class Grupo(TimeStamped):
+    produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
+    identificador = models.CharField(max_length=100)
+    titulo = models.CharField(max_length=100)
+    limitador = models.CharField(max_length=2, default='1')
+    tipo = models.CharField(max_length=100, default='radio')
+
+    def __unicode__(self):
+        return u'%s' % self.identificador
+
+    def __str__(self):
+        return u'%s' % self.identificador
+
+    def save(self, *args, **kwargs):
+        try:
+            if int(self.limitador) == 1:
+                self.tipo = 'radio'
+            else:
+                self.tipo = 'checkbox'
+        except (Exception,):
+            self.tipo = ' '
+        super(Grupo, self).save(*args, **kwargs)
+
+
 class Opcional(TimeStamped):
     nome = models.CharField(max_length=100)
-    produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
+    grupo = models.ForeignKey(Grupo, blank=True, null=True, on_delete=models.CASCADE)
     valor = models.CharField(max_length=10)
 
     def __unicode__(self):
@@ -251,8 +294,9 @@ class ItemPedido(TimeStamped):
     def save(self, *args, **kwargs):
         valor_base = float(self.produto.preco_base)
         valor_opcionais = 0.0
-        for opc in self.opcionalchoice_set.all():
-            valor_opcionais = float(valor_opcionais) + float(opc.opcional.valor)
+        if self.opcionalchoice_set.first():
+            for opc in self.opcionalchoice_set.all():
+                valor_opcionais = float(valor_opcionais) + float(opc.opcional.valor)
         valor_unitario = float(valor_base) + float(valor_opcionais)
         self.valor_total = float(float(valor_unitario) * float(self.quantidade))
         super(ItemPedido, self).save(*args, **kwargs)
@@ -313,5 +357,6 @@ class Classificacao(TimeStamped):
 
     def __unicode__(self):
         return u'Pedido:%s Nota:%s' % (self.pedido, self.nota)
+
     def __str__(self):
         return u'Pedido:%s Nota:%s' % (self.pedido, self.nota)

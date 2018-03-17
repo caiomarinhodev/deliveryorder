@@ -2,7 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import transaction
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
-from app.forms import FormProduto, OpcionalFormSet, FotoProdutoFormSet
+from app.forms import FormProduto, GrupoFormSet, FotoProdutoFormSet
 from app.models import Produto, Estabelecimento
 from app.views.mixins.Mixin import FocusMixin
 
@@ -30,23 +30,23 @@ class ProdutoCreateView(LoginRequiredMixin, CreateView, FocusMixin):
     def get_context_data(self, **kwargs):
         data = super(ProdutoCreateView, self).get_context_data(**kwargs)
         if self.request.POST:
-            data['opcionalset'] = OpcionalFormSet(self.request.POST)
+            data['gruposet'] = GrupoFormSet(self.request.POST)
             data['fotoset'] = FotoProdutoFormSet(self.request.POST)
         else:
-            data['opcionalset'] = OpcionalFormSet()
+            data['gruposet'] = GrupoFormSet()
             data['fotoset'] = FotoProdutoFormSet()
         return data
 
     def form_valid(self, form):
         context = self.get_context_data()
         print(context)
-        opcionalset = context['opcionalset']
+        gruposet = context['gruposet']
         fotoset = context['fotoset']
         with transaction.atomic():
             self.object = form.save()
-            if opcionalset.is_valid():
-                opcionalset.instance = self.object
-                opcionalset.save()
+            if gruposet.is_valid():
+                gruposet.instance = self.object
+                gruposet.save()
             if fotoset.is_valid():
                 fotoset.instance = self.object
                 fotoset.save()
@@ -77,23 +77,23 @@ class ProdutoUpdateView(LoginRequiredMixin, UpdateView, FocusMixin):
     def get_context_data(self, **kwargs):
         data = super(ProdutoUpdateView, self).get_context_data(**kwargs)
         if self.request.POST:
-            data['opcionalset'] = OpcionalFormSet(self.request.POST, self.request.FILES, instance=self.object)
+            data['gruposet'] = GrupoFormSet(self.request.POST, self.request.FILES, instance=self.object)
             data['fotoset'] = FotoProdutoFormSet(self.request.POST, self.request.FILES, instance=self.object)
         else:
-            data['opcionalset'] = OpcionalFormSet(instance=self.object)
+            data['gruposet'] = GrupoFormSet(instance=self.object)
             data['fotoset'] = FotoProdutoFormSet(instance=self.object)
         return data
 
     def form_valid(self, form):
         context = self.get_context_data()
         print(context)
-        opcionalset = context['opcionalset']
+        gruposet = context['gruposet']
         fotoset = context['fotoset']
         with transaction.atomic():
             self.object = form.save()
-            if opcionalset.is_valid():
-                opcionalset.instance = self.object
-                opcionalset.save()
+            if gruposet.is_valid():
+                gruposet.instance = self.object
+                gruposet.save()
             if fotoset.is_valid():
                 fotoset.instance = self.object
                 fotoset.save()
@@ -111,7 +111,6 @@ class ProdutoUpdateView(LoginRequiredMixin, UpdateView, FocusMixin):
     def form_invalid(self, form):
         print(form.errors)
         return super(ProdutoUpdateView, self).form_invalid(form)
-
 
 
 class ProdutoDeleteView(LoginRequiredMixin, DeleteView, FocusMixin):
