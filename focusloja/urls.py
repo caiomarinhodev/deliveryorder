@@ -31,7 +31,6 @@ from app.views.painel.notificacao.NotificacaoView import *
 from app.views.painel.grupo.GrupoView import *
 from app.views.loja.HomeView import *
 
-
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^admin/login/$', auth_views.login),
@@ -87,4 +86,6 @@ urlpatterns = [
     url(r'^login/cliente/$', ClienteLoginView.as_view(), name='login_cliente'),
     url(r'^registro/cliente', RegistroCliente.as_view(), name='registro_cliente'),
     # url(r'^$', AppView.as_view(), name='home'),
+
+    url(r'^add-cart/(?P<id_loja>[0-9]+)/$', add_cart, name='add_cart'),
 ]

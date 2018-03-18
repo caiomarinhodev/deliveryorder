@@ -75,7 +75,8 @@
                             {% endfor %}
                         </ul>
                         <div id="myTabContent" class="tab-content">
-                            {% for cat in loja.categoria_set.all %}
+                        <form method="post" action="{% url 'add_cart' loja.id %}">{% csrf_token %}
+                             {% for cat in loja.categoria_set.all %}
                                 {% if cat.produto_set.first %}
                                     <div class="tab-pane" id="cat-{{ cat.pk }}">
                                         <div class="row">
@@ -103,6 +104,7 @@
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header text-center">
+                                                                <input name="produto" value="{{ produto.id }}" class="hidden"/>
                                                                 <h3 class="modal-title">{{ produto.nome }}
                                                                     (R$ {{ produto.preco_base }})</h3>
                                                                 <button type="button" class="close" data-dismiss="modal"
@@ -127,7 +129,7 @@
                                                                                 {% for opcional in grupo.opcional_set.all %}
                                                                                     <div class="radio">
                                                                                         <label>
-                                                                                            <input type="radio" name="radio-{{ grupo.identificador }}"
+                                                                                            <input type="radio" name="checks"
                                                                                                    value="{{ opcional.id }}" data-value="{{ opcional.valor }}">
                                                                                             {{ opcional.nome }}
                                                                                         </label>
@@ -137,7 +139,7 @@
                                                                                 {% for opc in grupo.opcional_set.all %}
                                                                                     <div class="checkbox">
                                                                                         <label>
-                                                                                            <input type="checkbox" name="opcional"
+                                                                                            <input type="checkbox" name="checks"
                                                                                                    value="{{ opc.id }}">
                                                                                             {{ opc.nome }}
                                                                                         </label>
@@ -158,8 +160,8 @@
                                                                     <button type="button" class="btn btn-secondary"
                                                                             data-dismiss="modal">Fechar
                                                                     </button>
-                                                                    <a href="#" class="btn btn-danger">Adicionar
-                                                                    </a>
+                                                                    <button type="submit" class="btn btn-danger">Adicionar
+                                                                    </button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -171,6 +173,8 @@
                                 {% endif %}
 
                             {% endfor %}
+                        </form>
+
                         </div>
                         <br/><br/>
                         <p>Todas as imagens são meramente ilustrativas.</p>
