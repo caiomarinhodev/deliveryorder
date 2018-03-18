@@ -97,7 +97,7 @@ class BairroAdmin(admin.ModelAdmin):
 
 
 class GrupoAdmin(admin.ModelAdmin):
-    list_display = ('identificador', 'id', 'titulo', 'produto', 'limitador', 'estabelecimento', 'created_at')
+    list_display = ('identificador', 'id', 'titulo', 'produto', 'limitador', 'estabelecimento', 'created_at', 'obrigatoriedade')
     inlines = [OpcionalInline, ]
 
     def estabelecimento(self, obj):

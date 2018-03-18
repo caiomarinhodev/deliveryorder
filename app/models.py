@@ -173,6 +173,7 @@ class Grupo(TimeStamped):
     identificador = models.CharField(max_length=100)
     titulo = models.CharField(max_length=100)
     limitador = models.CharField(max_length=2, default='1')
+    obrigatoriedade = models.BooleanField(default=False)
     tipo = models.CharField(max_length=100, default='radio')
 
     def __unicode__(self):

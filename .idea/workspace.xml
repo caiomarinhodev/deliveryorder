@@ -49,8 +49,8 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="264" column="65" lean-forward="false" selection-start-line="264" selection-start-column="65" selection-end-line="264" selection-end-column="65" />
+            <state relative-caret-position="115">
+              <caret line="175" column="55" lean-forward="false" selection-start-line="175" selection-start-column="55" selection-end-line="175" selection-end-column="55" />
               <folding />
             </state>
           </provider>
@@ -59,8 +59,8 @@
       <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/focusloja/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="295">
-              <caret line="89" column="48" lean-forward="false" selection-start-line="89" selection-start-column="48" selection-end-line="89" selection-end-column="48" />
+            <state relative-caret-position="261">
+              <caret line="91" column="76" lean-forward="false" selection-start-line="91" selection-start-column="63" selection-end-line="91" selection-end-column="76" />
               <folding>
                 <element signature="e#643#675#0" expanded="true" />
               </folding>
@@ -71,8 +71,8 @@
       <file leaf-file-name="admin.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/admin.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1258">
-              <caret line="76" column="132" lean-forward="false" selection-start-line="76" selection-start-column="132" selection-end-line="76" selection-end-column="132" />
+            <state relative-caret-position="255">
+              <caret line="99" column="126" lean-forward="false" selection-start-line="99" selection-start-column="126" selection-end-line="99" selection-end-column="126" />
               <folding />
             </state>
           </provider>
@@ -81,8 +81,8 @@
       <file leaf-file-name="forms.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/forms.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="81">
-              <caret line="132" column="6" lean-forward="false" selection-start-line="132" selection-start-column="6" selection-end-line="132" selection-end-column="6" />
+            <state relative-caret-position="132">
+              <caret line="72" column="85" lean-forward="false" selection-start-line="72" selection-start-column="85" selection-end-line="72" selection-end-column="85" />
               <folding>
                 <element signature="e#46#70#0" expanded="true" />
               </folding>
@@ -90,37 +90,35 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="OpcionalView.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/painel/opcional/OpcionalView.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="17" column="60" lean-forward="false" selection-start-line="17" selection-start-column="60" selection-end-line="17" selection-end-column="60" />
-              <folding>
-                <element signature="e#0#57#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="view_produtos.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="view_produtos.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/loja/view_produtos.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="218">
-              <caret line="77" column="77" lean-forward="false" selection-start-line="77" selection-start-column="77" selection-end-line="77" selection-end-column="77" />
+            <state relative-caret-position="170">
+              <caret line="264" column="68" lean-forward="false" selection-start-line="264" selection-start-column="68" selection-end-line="264" selection-end-column="68" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HomeView.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/loja/HomeView.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="567">
+              <caret line="111" column="68" lean-forward="false" selection-start-line="111" selection-start-column="68" selection-end-line="111" selection-end-column="68" />
               <folding>
-                <element signature="e#5166#5202#0#HTML" expanded="true" />
+                <element signature="e#46#81#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HomeView.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/views/loja/HomeView.py">
+      <file leaf-file-name="Mixin.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/mixins/Mixin.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="261">
-              <caret line="73" column="65" lean-forward="false" selection-start-line="73" selection-start-column="65" selection-end-line="73" selection-end-column="65" />
+            <state relative-caret-position="289">
+              <caret line="17" column="16" lean-forward="false" selection-start-line="17" selection-start-column="16" selection-end-line="17" selection-end-column="16" />
               <folding>
-                <element signature="e#46#81#0" expanded="true" />
+                <element signature="e#0#50#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -173,7 +171,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/templates/painel/foto_produto/edit.html" />
         <option value="$PROJECT_DIR$/templates/painel/foto_produto/list.html" />
         <option value="$PROJECT_DIR$/app/views/painel/foto_produto/FotoProdutoView.py" />
         <option value="$PROJECT_DIR$/templates/painel/forma_pagamento/add.html" />
@@ -204,7 +201,6 @@
         <option value="$PROJECT_DIR$/app/views/loja/LoginView.py" />
         <option value="$PROJECT_DIR$/templates/loja/escolhe_login.html" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/app/forms.py" />
         <option value="$PROJECT_DIR$/templates/painel/produto/edit.html" />
         <option value="$PROJECT_DIR$/templates/painel/produto/add.html" />
         <option value="$PROJECT_DIR$/templates/painel/grupo/add.html" />
@@ -214,14 +210,16 @@
         <option value="$PROJECT_DIR$/templates/painel/grupo/list.html" />
         <option value="$PROJECT_DIR$/app/views/painel/produto/ProdutoView.py" />
         <option value="$PROJECT_DIR$/app/views/painel/grupo/GrupoView.py" />
-        <option value="$PROJECT_DIR$/app/admin.py" />
         <option value="$PROJECT_DIR$/app/views/painel/login/LoginView.py" />
         <option value="$PROJECT_DIR$/templates/painel/produto/list.html" />
         <option value="$PROJECT_DIR$/templates/painel/opcional/list.html" />
         <option value="$PROJECT_DIR$/app/views/painel/opcional/OpcionalView.py" />
         <option value="$PROJECT_DIR$/app/views/painel/forma_entrega/FormaEntregaView.py" />
-        <option value="$PROJECT_DIR$/app/models.py" />
         <option value="$PROJECT_DIR$/focusloja/urls.py" />
+        <option value="$PROJECT_DIR$/app/models.py" />
+        <option value="$PROJECT_DIR$/app/admin.py" />
+        <option value="$PROJECT_DIR$/app/forms.py" />
+        <option value="$PROJECT_DIR$/app/views/mixins/Mixin.py" />
         <option value="$PROJECT_DIR$/templates/loja/view_produtos.html" />
         <option value="$PROJECT_DIR$/app/views/loja/HomeView.py" />
       </list>
@@ -255,7 +253,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -369,6 +366,28 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="mixins" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="deliveryorder" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="deliveryorder" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="loja" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -393,6 +412,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -752,9 +772,9 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29002696" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.329653" sideWeight="0.4838946" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.329653" sideWeight="0.48096633" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.329653" sideWeight="0.5161054" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.329653" sideWeight="0.5190337" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -783,7 +803,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/templates/loja/404.html" />
     <entry file="file://$PROJECT_DIR$/templates/loja/base_loja.html" />
     <entry file="file://$PROJECT_DIR$/templates/loja/includes/loading.html">
       <provider selected="true" editor-type-id="text-editor">
@@ -975,14 +994,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/admin.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1258">
-          <caret line="76" column="132" lean-forward="false" selection-start-line="76" selection-start-column="132" selection-end-line="76" selection-end-column="132" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/painel/produto/list.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-289">
@@ -1042,56 +1053,72 @@
         <state relative-caret-position="289">
           <caret line="17" column="60" lean-forward="false" selection-start-line="17" selection-start-column="60" selection-end-line="17" selection-end-column="60" />
           <folding>
-            <element signature="e#0#57#0" expanded="true" />
+            <element signature="e#0#57#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/forms.py">
+    <entry file="file://$PROJECT_DIR$/app/admin.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="81">
-          <caret line="132" column="6" lean-forward="false" selection-start-line="132" selection-start-column="6" selection-end-line="132" selection-end-column="6" />
-          <folding>
-            <element signature="e#46#70#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="255">
+          <caret line="99" column="126" lean-forward="false" selection-start-line="99" selection-start-column="126" selection-end-line="99" selection-end-column="126" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="264" column="65" lean-forward="false" selection-start-line="264" selection-start-column="65" selection-end-line="264" selection-end-column="65" />
+        <state relative-caret-position="115">
+          <caret line="175" column="55" lean-forward="false" selection-start-line="175" selection-start-column="55" selection-end-line="175" selection-end-column="55" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/focusloja/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="89" column="48" lean-forward="false" selection-start-line="89" selection-start-column="48" selection-end-line="89" selection-end-column="48" />
+        <state relative-caret-position="261">
+          <caret line="91" column="76" lean-forward="false" selection-start-line="91" selection-start-column="63" selection-end-line="91" selection-end-column="76" />
           <folding>
             <element signature="e#643#675#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/loja/view_produtos.html">
+    <entry file="file://$PROJECT_DIR$/app/forms.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="77" column="77" lean-forward="false" selection-start-line="77" selection-start-column="77" selection-end-line="77" selection-end-column="77" />
+        <state relative-caret-position="132">
+          <caret line="72" column="85" lean-forward="false" selection-start-line="72" selection-start-column="85" selection-end-line="72" selection-end-column="85" />
           <folding>
-            <element signature="e#5166#5202#0#HTML" expanded="true" />
+            <element signature="e#46#70#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/mixins/Mixin.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="16" lean-forward="false" selection-start-line="17" selection-start-column="16" selection-end-line="17" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#50#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/loja/HomeView.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="73" column="65" lean-forward="false" selection-start-line="73" selection-start-column="65" selection-end-line="73" selection-end-column="65" />
+        <state relative-caret-position="567">
+          <caret line="111" column="68" lean-forward="false" selection-start-line="111" selection-start-column="68" selection-end-line="111" selection-end-column="68" />
           <folding>
             <element signature="e#46#81#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/loja/view_produtos.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="264" column="68" lean-forward="false" selection-start-line="264" selection-start-column="68" selection-end-line="264" selection-end-column="68" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -70,7 +70,7 @@ class FormEndereco(ModelForm, BaseForm):
 class FormGrupo(ModelForm, BaseForm):
     class Meta:
         model = Grupo
-        fields = ['identificador', 'titulo', 'produto', 'limitador', ]
+        fields = ['identificador', 'titulo', 'produto', 'limitador', 'obrigatoriedade']
 
     def __init__(self, *args, **kwargs):
         super(FormGrupo, self).__init__(*args, **kwargs)
@@ -81,7 +81,7 @@ class FormGrupo(ModelForm, BaseForm):
 class FormGrupoInline(ModelForm, BaseForm):
     class Meta:
         model = Grupo
-        fields = ['identificador', 'titulo', 'limitador', ]
+        fields = ['identificador', 'titulo', 'limitador', 'obrigatoriedade']
 
 
 class FormProduto(ModelForm, BaseForm):

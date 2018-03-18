@@ -88,4 +88,6 @@ urlpatterns = [
     # url(r'^$', AppView.as_view(), name='home'),
 
     url(r'^add-cart/(?P<id_loja>[0-9]+)/$', add_cart, name='add_cart'),
+
+    url(r'^delete-pedido/(?P<pk>[0-9]+)/$', remove_cart, name='delete_pedido'),
 ]

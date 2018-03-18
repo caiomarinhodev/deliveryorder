@@ -75,105 +75,164 @@
                             {% endfor %}
                         </ul>
                         <div id="myTabContent" class="tab-content">
-                        <form method="post" action="{% url 'add_cart' loja.id %}">{% csrf_token %}
-                             {% for cat in loja.categoria_set.all %}
-                                {% if cat.produto_set.first %}
-                                    <div class="tab-pane" id="cat-{{ cat.pk }}">
-                                        <div class="row">
-                                            {% for produto in cat.produto_set.all %}
-                                                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3"
-                                                     style="margin-bottom: 50px;">
-                                                    <a href="#p{{ produto.pk }}" data-toggle="modal"
-                                                       data-target="#p{{ produto.pk }}">
-                                                        <div class="thumbnail" style="height: 180px; width: 180px;">
-                                                            <img title="{{ produto.nome }}"
-                                                                 alt="{{ produto.nome }}"
-                                                                 src="{{ produto.fotoproduto_set.first }}"
-                                                                 style="height: 170px; width: 170px;"
-                                                            />
-                                                            <div class="caption text-center">
-                                                                <h4>{{ produto.nome }}</h4>
-                                                                <p>R$ {{ produto.preco_base }}</p>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                                <div class="modal fade" id="p{{ produto.pk }}" tabindex="-1"
-                                                     role="dialog" aria-labelledby="exampleModalLabel"
-                                                     aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header text-center">
-                                                                <input name="produto" value="{{ produto.id }}" class="hidden"/>
-                                                                <h3 class="modal-title">{{ produto.nome }}
-                                                                    (R$ {{ produto.preco_base }})</h3>
-                                                                <button type="button" class="close" data-dismiss="modal"
-                                                                        aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <div class="row text-center">
-                                                                    <div class="col-xs-12">
-                                                                        <label><b>Descricao:</b></label>
-                                                                        <p class="text-center">{{ produto.descricao }}</p>
-                                                                    </div>
+                            <form method="post" action="{% url 'add_cart' loja.id %}">{% csrf_token %}
+                                {% for cat in loja.categoria_set.all %}
+                                    {% if cat.produto_set.first %}
+                                        <div class="tab-pane" id="cat-{{ cat.pk }}">
+                                            <div class="row">
+                                                {% for produto in cat.produto_set.all %}
+                                                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3"
+                                                         style="margin-bottom: 50px;">
+                                                        <a href="#p{{ produto.pk }}" data-toggle="modal"
+                                                           data-target="#p{{ produto.pk }}">
+                                                            <div class="thumbnail" style="height: 180px; width: 180px;">
+                                                                <img title="{{ produto.nome }}"
+                                                                     alt="{{ produto.nome }}"
+                                                                     src="{{ produto.fotoproduto_set.first }}"
+                                                                     style="height: 170px; width: 170px;"
+                                                                />
+                                                                <div class="caption text-center">
+                                                                    <h4>{{ produto.nome }}</h4>
+                                                                    <p>R$ {{ produto.preco_base }}</p>
                                                                 </div>
-                                                                <hr/>
-                                                                {% for grupo in produto.grupo_set.all %}
-                                                                    <div class="row">
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                    <div class="modal fade" id="p{{ produto.pk }}" tabindex="-1"
+                                                         role="dialog" aria-labelledby="exampleModalLabel"
+                                                         aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header text-center">
+                                                                    <input name="produto" value="{{ produto.id }}"
+                                                                           class="hidden"/>
+                                                                    <h3 class="modal-title">{{ produto.nome }}
+                                                                        (R$ {{ produto.preco_base }})</h3>
+                                                                    <button type="button" class="close"
+                                                                            data-dismiss="modal"
+                                                                            aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <div class="row text-center">
                                                                         <div class="col-xs-12">
-                                                                            <label><b>{{ grupo.titulo }}:</b></label>
+                                                                            <label><b>Descricao:</b></label>
+                                                                            <p class="text-center">{{ produto.descricao }}</p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <hr/>
+                                                                    {% for grupo in produto.grupo_set.all %}
+                                                                        <div class="row">
+                                                                            <div class="col-xs-12">
+                                                                                <label><b>{{ grupo.titulo }}:</b></label>
 
-                                                                            {% if grupo.tipo == 'radio' %}
-                                                                                {% for opcional in grupo.opcional_set.all %}
-                                                                                    <div class="radio">
-                                                                                        <label>
-                                                                                            <input type="radio" name="checks"
-                                                                                                   value="{{ opcional.id }}" data-value="{{ opcional.valor }}">
-                                                                                            {{ opcional.nome }}
-                                                                                        </label>
-                                                                                    </div>
-                                                                                {% endfor %}
-                                                                            {% else %}
-                                                                                {% for opc in grupo.opcional_set.all %}
-                                                                                    <div class="checkbox">
-                                                                                        <label>
-                                                                                            <input type="checkbox" name="checks"
-                                                                                                   value="{{ opc.id }}">
-                                                                                            {{ opc.nome }}
-                                                                                        </label>
-                                                                                    </div>
-                                                                                {% endfor %}
-                                                                            {% endif %}
+                                                                                {% if grupo.tipo == 'radio' %}
+                                                                                    {% for opcional in grupo.opcional_set.all %}
+                                                                                        <div class="radio">
+                                                                                            <label>
+                                                                                                <input type="radio"
+                                                                                                       name="checks"
+                                                                                                       value="{{ opcional.id }}"
+                                                                                                       data-value="{{ opcional.valor }}">
+                                                                                                {{ opcional.nome }}
+                                                                                                (R$ {{ opcional.valor }})
+                                                                                            </label>
+                                                                                        </div>
+                                                                                    {% endfor %}
+                                                                                {% else %}
+                                                                                    {% for opc in grupo.opcional_set.all %}
+                                                                                        <div class="checkbox">
+                                                                                            <label>
+                                                                                                <input type="checkbox"
+                                                                                                       name="checks"
+                                                                                                       data-limitador="{{ grupo.limitador }}"
+                                                                                                       data-value="{{ opc.valor }}"
+                                                                                                       value="{{ opc.id }}"
+                                                                                                       onclick="return KeepCount_{{ grupo.pk }}();">
+                                                                                                {{ opc.nome }}
+                                                                                                (R$ {{ opc.valor }})
+                                                                                            </label>
+                                                                                        </div>
+                                                                                    {% endfor %}
+                                                                                    <script type="text/javascript">
+                                                                                        function KeepCount_{{ grupo.pk }}() {
+                                                                                            var inputTags_{{ grupo.pk }} = $('input[data-limitador={{ grupo.limitador }}]');
+                                                                                            var total_{{ grupo.pk }} = 0;
+                                                                                            console.log(inputTags_{{ grupo.pk }});
+                                                                                            for (var i = 0; i < inputTags_{{ grupo.pk }}.length; i++) {
+
+                                                                                                if (inputTags_{{ grupo.pk }}[i].checked) {
+                                                                                                    total_{{ grupo.pk }} = total_{{ grupo.pk }} + 1;
+                                                                                                }
+
+                                                                                                if (total_{{ grupo.pk }} > parseInt({{ grupo.limitador }})) {
+                                                                                                    swal('Escolha apenas {{ grupo.limitador }} opcionais', '', 'warning');
+                                                                                                    inputTags_{{ grupo.pk }}[i].checked = false;
+                                                                                                    return false;
+                                                                                                }
+                                                                                            }
+                                                                                        }
+                                                                                    </script>
+                                                                                {% endif %}
+                                                                            </div>
+
                                                                         </div>
 
-                                                                    </div>
-
-                                                                {% endfor %}
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <div class="pull-left">
-                                                                    <h3>R$ 8.90</h3>
+                                                                    {% endfor %}
                                                                 </div>
-                                                                <div class="pull-right">
-                                                                    <button type="button" class="btn btn-secondary"
-                                                                            data-dismiss="modal">Fechar
-                                                                    </button>
-                                                                    <button type="submit" class="btn btn-danger">Adicionar
-                                                                    </button>
+                                                                <div class="modal-footer">
+                                                                    <div class="pull-left">
+                                                                        <h3>R$ <span
+                                                                                id="total_item_{{ produto.pk }}"></span>
+                                                                        </h3>
+                                                                        <script>
+                                                                            $(document).ready(function () {
+                                                                                $('#total_item_{{ produto.pk }}').text('{{ produto.preco_base }}');
+                                                                                $('input').change(function () {
+                                                                                    var total_calc_{{ produto.pk }} = parseFloat('' +{{ produto.preco_base }});
+                                                                                    var all_{{ produto.pk }} = $("input:checked").map(function () {
+                                                                                        return $(this).data('value');
+                                                                                    });
+                                                                                    console.log(all_{{ produto.pk }});
+                                                                                    for (i = 0; i < all_{{ produto.pk }}.length; i++) {
+                                                                                        console.log(all_{{ produto.pk }}[i]);
+                                                                                        total_calc_{{ produto.pk }} = total_calc_{{ produto.pk }} + parseFloat(all_{{ produto.pk }}[i]);
+                                                                                    }
+                                                                                    $('#total_item_{{ produto.pk }}').text('' + total_calc_{{ produto.pk }});
+                                                                                })
+                                                                            });
+                                                                        </script>
+                                                                    </div>
+                                                                    <div class="pull-right">
+                                                                        <button type="button" id="fechar"
+                                                                                class="btn btn-secondary"
+                                                                                data-dismiss="modal">Fechar
+                                                                        </button>
+                                                                        <script>
+                                                                            $(document).ready(function () {
+                                                                                $('#fechar').click(function (evt) {
+                                                                                    $('input').removeAttr('checked');
+                                                                                    $('input').change();
+                                                                                    evt.preventDefault();
+                                                                                });
+                                                                            })
+                                                                        </script>
+                                                                        <button type="submit" class="btn btn-danger">
+                                                                            Adicionar
+                                                                        </button>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            {% endfor %}
+                                                {% endfor %}
+                                            </div>
                                         </div>
-                                    </div>
-                                {% endif %}
+                                    {% endif %}
 
-                            {% endfor %}
-                        </form>
+                                {% endfor %}
+                            </form>
 
                         </div>
                         <br/><br/>
@@ -192,26 +251,47 @@
                         <div class="box-header mt-0">
                             <h3>Meu Pedido</h3>
                         </div>
-                        <p class="text-muted">Shipping and additional costs are calculated based on the values you have
-                            entered.</p>
+                        <p class="text-muted">Verifique abaixo seu itens no pedido</p>
                         <div class="table-responsive">
                             <table class="table">
                                 <tbody>
-                                <tr>
-                                    <td>Order subtotal</td>
-                                    <th>$446.00</th>
-                                </tr>
-                                <tr>
-                                    <td>Shipping and handling</td>
-                                    <th>$10.00</th>
-                                </tr>
-                                <tr>
-                                    <td>Tax</td>
-                                    <th>$0.00</th>
-                                </tr>
+                                {% for itempedido in pedido_obj.itempedido_set.all %}
+                                    <tr>
+                                        <td>{{ itempedido.produto.nome }}</td>
+                                        <td>
+                                            <sup>
+                                                (
+                                                {% for opc in itempedido.opcionalchoice_set.all %}
+                                                    {{ opc.opcional.nome }},
+                                                {% empty %}
+                                                    -
+                                                {% endfor %}
+                                                )
+                                            </sup>
+                                        </td>
+                                        <th>R$ {{ itempedido.valor_total|floatformat:2 }}</th>
+                                        <td>
+                                            <a href="{% url 'delete_pedido' pedido_obj.pk %}"><i
+                                                    class="fa fa-close"></i></a>
+                                        </td>
+                                    </tr>
+                                {% empty %}
+                                    <tr>
+                                        <td></td>
+                                        <td>Seu carrinho está vazio</td>
+                                        <th></th>
+                                        <td></td>
+                                    </tr>
+                                {% endfor %}
                                 <tr class="total">
                                     <td>Total</td>
-                                    <th>$456.00</th>
+                                    {% if pedido_obj %}
+                                        <th>R$ {{ pedido_obj.valor_total|floatformat:2 }}</th>
+                                    {% else %}
+                                        <th>R$ 0.00</th>
+                                    {% endif %}
+                                    <td></td>
+                                    <td></td>
                                 </tr>
                                 </tbody>
                             </table>
