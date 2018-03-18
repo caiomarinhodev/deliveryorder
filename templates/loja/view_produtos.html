@@ -53,7 +53,7 @@
                                                     </a>
                                                 {% endif %}
                                                 <a href="#" class="btn btn-xs btn-default"><span
-                                                        class="fa fa-cutlery"></span> 40 min</a>
+                                                        class="fa fa-cutlery"></span> 35 min</a>
                                             </p>
                                             {#                                            <p class="pull-right">#}
                                             {#                                            <h2><span class="fa fa-phone"></span> {{ loja.telefone }}</h2>#}
@@ -74,7 +74,7 @@
                                        aria-expanded="true">{{ categoria.nome }}</a></li>
                             {% endfor %}
                         </ul>
-                        <div id="myTabContent" class="tab-content text-center">
+                        <div id="myTabContent" class="tab-content">
                             {% for cat in loja.categoria_set.all %}
                                 {% if cat.produto_set.first %}
                                     <div class="tab-pane" id="cat-{{ cat.pk }}">
@@ -102,7 +102,7 @@
                                                      aria-hidden="true">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
-                                                            <div class="modal-header">
+                                                            <div class="modal-header text-center">
                                                                 <h3 class="modal-title">{{ produto.nome }}
                                                                     (R$ {{ produto.preco_base }})</h3>
                                                                 <button type="button" class="close" data-dismiss="modal"
@@ -111,28 +111,44 @@
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <div class="row">
+                                                                <div class="row text-center">
                                                                     <div class="col-xs-12">
                                                                         <label><b>Descricao:</b></label>
                                                                         <p class="text-center">{{ produto.descricao }}</p>
                                                                     </div>
                                                                 </div>
                                                                 <hr/>
-                                                                <div class="row">
-                                                                    <div class="col-xs-12">
-                                                                        <label><b>Opcionais:</b></label>
-                                                                        {% for opc in produto.opcional_set.all %}
-                                                                            <div class="checkbox">
-                                                                                <label><input type="checkbox"
-                                                                                              value="{{ opc.valor }}">{{ opc.nome }}
-                                                                                </label>
-                                                                            </div>
-                                                                        {% empty %}
-                                                                            <p></p>
-                                                                        {% endfor %}
+                                                                {% for grupo in produto.grupo_set.all %}
+                                                                    <div class="row">
+                                                                        <div class="col-xs-12">
+                                                                            <label><b>{{ grupo.titulo }}:</b></label>
+
+                                                                            {% if grupo.tipo == 'radio' %}
+                                                                                {% for opcional in grupo.opcional_set.all %}
+                                                                                    <div class="radio">
+                                                                                        <label>
+                                                                                            <input type="radio" name="radio-{{ grupo.identificador }}"
+                                                                                                   value="{{ opcional.id }}" data-value="{{ opcional.valor }}">
+                                                                                            {{ opcional.nome }}
+                                                                                        </label>
+                                                                                    </div>
+                                                                                {% endfor %}
+                                                                            {% else %}
+                                                                                {% for opc in grupo.opcional_set.all %}
+                                                                                    <div class="checkbox">
+                                                                                        <label>
+                                                                                            <input type="checkbox" name="opcional"
+                                                                                                   value="{{ opc.id }}">
+                                                                                            {{ opc.nome }}
+                                                                                        </label>
+                                                                                    </div>
+                                                                                {% endfor %}
+                                                                            {% endif %}
+                                                                        </div>
+
                                                                     </div>
 
-                                                                </div>
+                                                                {% endfor %}
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <div class="pull-left">
