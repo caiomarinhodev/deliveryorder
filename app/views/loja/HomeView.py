@@ -40,7 +40,7 @@ class SetOnlineView(RedirectView):
 # Implementar botao para Finalizar Pedido (10 min) OK
 
 
-# Implementar Verificacao no back com messages se Loja is Online apos clicar no botao Finalizar Pedido
+# Implementar Verificacao no back com messages se Loja is Online apos clicar no botao Finalizar Pedido (30min)
 # Implementar tela de inserir dados de entrega,  (1h30)
 
 # Implementar Notificacao de Pedido para Loja (painel)  (1h30)
@@ -70,4 +70,4 @@ class SetOnlineView(RedirectView):
 
 # Implementar a notificacao do Motoboy, placa e informacoes dele para o Cliente que pediu. (8h)
 
-# Implementar API
+# Implementar API (20h)
