@@ -115,6 +115,8 @@
     <script type="text/javascript">
         $(document).ready(function () {
 
+            $('[name=obrigatoriedade]').removeClass('form-control');
+
             $('#btn_salvar').click(function () {
                 if ($("select").filter(function () {
                         return $.trim($(this).val()).length == 0

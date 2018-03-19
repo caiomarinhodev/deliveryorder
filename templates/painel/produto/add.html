@@ -114,6 +114,11 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+            $('input[type=checkbox]').removeClass('form-control');
+
+            $('.add-row').click(function (evt) {
+                $('input[type=checkbox]').removeClass('form-control');
+            });
 
             $('#btn_salvar').click(function () {
                 if ($("select").filter(function () {

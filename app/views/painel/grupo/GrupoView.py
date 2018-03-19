@@ -2,7 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import transaction
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
-from app.forms import FormGrupo, OpcionalFormSet
+from app.forms import FormGrupo, OpcionalFormSet, OpcionalUpdateFormSet
 from app.models import Grupo
 from app.views.mixins.Mixin import FocusMixin
 
@@ -71,9 +71,9 @@ class GrupoUpdateView(LoginRequiredMixin, UpdateView, FocusMixin):
     def get_context_data(self, **kwargs):
         data = super(GrupoUpdateView, self).get_context_data(**kwargs)
         if self.request.POST:
-            data['opcionalset'] = OpcionalFormSet(self.request.POST, self.request.FILES, instance=self.object)
+            data['opcionalset'] = OpcionalUpdateFormSet(self.request.POST, self.request.FILES, instance=self.object)
         else:
-            data['opcionalset'] = OpcionalFormSet(instance=self.object)
+            data['opcionalset'] = OpcionalUpdateFormSet(instance=self.object)
         return data
 
     def form_valid(self, form):

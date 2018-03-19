@@ -12,7 +12,7 @@ class LojaFocusMixin(ContextMixin):
     def get_context_data(self, **kwargs):
         try:
             if 'pedido' in self.request.session:
-                print(self.request.session['pedido'])
+                print('ID pedido: ' + str(self.request.session['pedido']))
                 kwargs['pedido_obj'] = Pedido.objects.get(id=self.request.session['pedido'])
         except (Exception,):
             pass

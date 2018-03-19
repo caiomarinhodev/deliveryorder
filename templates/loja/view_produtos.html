@@ -75,12 +75,13 @@
                             {% endfor %}
                         </ul>
                         <div id="myTabContent" class="tab-content">
-                            <form method="post" action="{% url 'add_cart' loja.id %}">{% csrf_token %}
-                                {% for cat in loja.categoria_set.all %}
-                                    {% if cat.produto_set.first %}
-                                        <div class="tab-pane" id="cat-{{ cat.pk }}">
-                                            <div class="row">
-                                                {% for produto in cat.produto_set.all %}
+                            {% for cat in loja.categoria_set.all %}
+                                {% if cat.produto_set.first %}
+                                    <div class="tab-pane" id="cat-{{ cat.pk }}">
+                                        <div class="row">
+                                            {% for produto in cat.produto_set.all %}
+                                                <form method="post"
+                                                      action="{% url 'add_cart' loja.id %}">{% csrf_token %}
                                                     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3"
                                                          style="margin-bottom: 50px;">
                                                         <a href="#p{{ produto.pk }}" data-toggle="modal"
@@ -108,7 +109,7 @@
                                                                            class="hidden"/>
                                                                     <h3 class="modal-title">{{ produto.nome }}
                                                                         (R$ {{ produto.preco_base }})</h3>
-                                                                    <button type="button" class="close"
+                                                                    <button type="button" class="close fechar"
                                                                             data-dismiss="modal"
                                                                             aria-label="Close">
                                                                         <span aria-hidden="true">&times;</span>
@@ -156,7 +157,7 @@
                                                                                         </div>
                                                                                     {% endfor %}
                                                                                     <script type="text/javascript">
-                                                                                        function KeepCount_{{ grupo.pk }}() {
+                                                                                        function KeepCount_ {{ grupo.pk }}() {
                                                                                             var inputTags_{{ grupo.pk }} = $('input[data-limitador={{ grupo.limitador }}]');
                                                                                             var total_{{ grupo.pk }} = 0;
                                                                                             console.log(inputTags_{{ grupo.pk }});
@@ -180,6 +181,12 @@
                                                                         </div>
 
                                                                     {% endfor %}
+                                                                <hr/>
+                                                                <div class="row">
+                                                                    <div class="col-xs-12">
+                                                                        <textarea name="observacoes" class="form-control" placeholder="Observações"></textarea>
+                                                                    </div>
+                                                                </div>
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <div class="pull-left">
@@ -205,13 +212,13 @@
                                                                         </script>
                                                                     </div>
                                                                     <div class="pull-right">
-                                                                        <button type="button" id="fechar"
-                                                                                class="btn btn-secondary"
+                                                                        <button type="button"
+                                                                                class="btn btn-secondary fechar"
                                                                                 data-dismiss="modal">Fechar
                                                                         </button>
                                                                         <script>
                                                                             $(document).ready(function () {
-                                                                                $('#fechar').click(function (evt) {
+                                                                                $('.fechar').click(function (evt) {
                                                                                     $('input').removeAttr('checked');
                                                                                     $('input').change();
                                                                                     evt.preventDefault();
@@ -226,13 +233,13 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                {% endfor %}
-                                            </div>
+                                                </form>
+                                            {% endfor %}
                                         </div>
-                                    {% endif %}
+                                    </div>
+                                {% endif %}
 
-                                {% endfor %}
-                            </form>
+                            {% endfor %}
 
                         </div>
                         <br/><br/>

@@ -2,7 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import transaction
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
-from app.forms import FormProduto, GrupoFormSet, FotoProdutoFormSet
+from app.forms import FormProduto, GrupoFormSet, FotoProdutoFormSet, GrupoUpdateFormSet, FotoProdutoUpdateFormSet
 from app.models import Produto, Estabelecimento
 from app.views.mixins.Mixin import FocusMixin
 
@@ -77,11 +77,11 @@ class ProdutoUpdateView(LoginRequiredMixin, UpdateView, FocusMixin):
     def get_context_data(self, **kwargs):
         data = super(ProdutoUpdateView, self).get_context_data(**kwargs)
         if self.request.POST:
-            data['gruposet'] = GrupoFormSet(self.request.POST, self.request.FILES, instance=self.object)
-            data['fotoset'] = FotoProdutoFormSet(self.request.POST, self.request.FILES, instance=self.object)
+            data['gruposet'] = GrupoUpdateFormSet(self.request.POST, self.request.FILES, instance=self.object)
+            data['fotoset'] = FotoProdutoUpdateFormSet(self.request.POST, self.request.FILES, instance=self.object)
         else:
-            data['gruposet'] = GrupoFormSet(instance=self.object)
-            data['fotoset'] = FotoProdutoFormSet(instance=self.object)
+            data['gruposet'] = GrupoUpdateFormSet(instance=self.object)
+            data['fotoset'] = FotoProdutoUpdateFormSet(instance=self.object)
         return data
 
     def form_valid(self, form):
