@@ -126,7 +126,11 @@
                                                                     {% for grupo in produto.grupo_set.all %}
                                                                         <div class="row">
                                                                             <div class="col-xs-12">
-                                                                                <label><b>{{ grupo.titulo }}:</b></label>
+                                                                                <label><b>{{ grupo.titulo }}
+                                                                                    {% if grupo.obrigatoriedade %}
+                                                                                        <b style="color: red;">*</b>
+                                                                                    {% endif %}
+                                                                                    :</b></label>
 
                                                                                 {% if grupo.tipo == 'radio' %}
                                                                                     {% for opcional in grupo.opcional_set.all %}
@@ -157,7 +161,7 @@
                                                                                         </div>
                                                                                     {% endfor %}
                                                                                     <script type="text/javascript">
-                                                                                        function KeepCount_ {{ grupo.pk }}() {
+                                                                                        function KeepCount_{{ grupo.pk }}() {
                                                                                             var inputTags_{{ grupo.pk }} = $('input[data-limitador={{ grupo.limitador }}]');
                                                                                             var total_{{ grupo.pk }} = 0;
                                                                                             console.log(inputTags_{{ grupo.pk }});
@@ -181,12 +185,14 @@
                                                                         </div>
 
                                                                     {% endfor %}
-                                                                <hr/>
-                                                                <div class="row">
-                                                                    <div class="col-xs-12">
-                                                                        <textarea name="observacoes" class="form-control" placeholder="Observações"></textarea>
+                                                                    <hr/>
+                                                                    <div class="row">
+                                                                        <div class="col-xs-12">
+                                                                            <textarea name="observacoes"
+                                                                                      class="form-control"
+                                                                                      placeholder="Observações"></textarea>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <div class="pull-left">
@@ -291,6 +297,7 @@
                                     </tr>
                                 {% endfor %}
                                 <tr class="total">
+
                                     <td>Total</td>
                                     {% if pedido_obj %}
                                         <th>R$ {{ pedido_obj.valor_total|floatformat:2 }}</th>
@@ -300,8 +307,18 @@
                                     <td></td>
                                     <td></td>
                                 </tr>
+
                                 </tbody>
                             </table>
+                            <a href="#" class="btn btn-danger
+                                                {% if not loja.is_online or not pedido_obj.itempedido_set.first %}
+                                                disabled
+                                                {% endif %}
+                                                "
+                                    {% if not loja.is_online or not pedido_obj.itempedido_set.first %}
+                               disabled="disabled"
+                                    {% endif %}
+                            >Finalizar Compra</a>
                         </div>
                     </div>
                     {% if loja.endereco_completo %}

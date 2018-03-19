@@ -31,6 +31,9 @@
 
     <link rel="stylesheet" href="{% static 'css/sweetalert.min.css' %}">
 
+
+    <link rel="stylesheet" href="{% static 'css/switch.css' %}">
+
     <link rel="stylesheet" type="text/css"
           href="{% static 'css/datatables.min.css' %}"/>
     {#        <link rel="stylesheet" type="text/css"#}
@@ -108,6 +111,41 @@
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
             <!-- Sidebar user panel -->
+            <div class="user-panel" style="padding-bottom: 30px;">
+                <div class="pull-left image">
+                    <img src="{{ user.estabelecimento.foto }}" class="img-circle" alt="User Image">
+                </div>
+                <div class="pull-left info">
+                    <p>{{ user.first_name }} {{ user.last_name }}</p>
+                    {% if user.estabelecimento.is_online %}
+                        <div class="checkbox checbox-switch switch-success">
+                            <label>
+                                <input type="checkbox" name="isonline" checked=""/>
+                                <span></span>
+                                Online
+                            </label>
+                        </div>
+                    {% else %}
+                       <div class="checkbox checbox-switch switch-success">
+                            <label>
+                                <input type="checkbox" name="isonline"/>
+                                <span></span>
+                                Offline
+                            </label>
+                        </div>
+                    {% endif %}
+                <script>
+                    $(document).ready(function () {
+                       $('[name=isonline]').change(function () {
+                           $('#loading').show();
+                           window.location.href='{% url 'set_online' %}';
+                       })
+                    });
+                </script>
+                </div>
+            </div>
+            <form action="#" method="get" class="sidebar-form">
+            </form>
             <!-- sidebar menu: : style can be found in sidebar.less -->
             {% include 'painel/includes/menu.html' %}
         </section>

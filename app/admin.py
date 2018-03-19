@@ -145,10 +145,10 @@ class FormaEntregaAdmin(admin.ModelAdmin):
 
 
 class OpcionalAdmin(admin.ModelAdmin):
-    list_display = ('nome', 'id', 'produto', 'valor', 'estabelecimento', 'created_at',)
+    list_display = ('nome', 'id', 'produto',  'valor', 'estabelecimento', 'created_at',)
 
     def estabelecimento(self, obj):
-        return obj.produto.categoria.estabelecimento
+        return obj.grupo.produto.categoria.estabelecimento
 
     def produto(self, obj):
         return obj.grupo.produto

@@ -1,10 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from django.contrib import messages
-from django.shortcuts import redirect
 from django.views.generic import ListView, DetailView
+from django.views.generic import RedirectView
 
-from app.models import Estabelecimento, Produto, Opcional, ItemPedido, OpcionalChoice, Pedido, Cliente
+from app.models import Estabelecimento
 from app.views.mixins.Mixin import LojaFocusMixin
 
 
@@ -24,86 +23,24 @@ class LojaProdutosListView(DetailView, LojaFocusMixin):
     pk_url_kwarg = 'pk'
 
 
-def check_same_store(id_loja, pedido):
-    if int(id_loja) == int(pedido.estabelecimento.id):
-        return True
-    return False
-
-
-def cria_item_pedido(checks, pedido, produto, obs):
-    itempedido = ItemPedido(pedido=pedido, quantidade='1', produto=produto, observacoes=obs)
-    itempedido.save()
-    for id in checks:
-        opc = Opcional.objects.get(id=id)
-        print(u'%s' % opc)
-        opcc = OpcionalChoice(opcional=opc, item_pedido=itempedido)
-        opcc.save()
-    itempedido.save()
-
-
-def is_logged(request):
-    try:
-        if request.user:
-            cliente = Cliente.objects.get(usuario=request.user)
-            if cliente:
-                return True
-            else:
-                return False
+class SetOnlineView(RedirectView):
+    def get_redirect_url(self, *args, **kwargs):
+        if self.request.user:
+            loja = Estabelecimento.objects.get(usuario=self.request.user)
+            loja.is_online = not loja.is_online
+            loja.save()
+            return '/dashboard'
         else:
-            return False
-    except (Exception,):
-        return False
+            return '/define/login'
+
+# Refactor HomeView (10min) OK
+# Implementar check na obrigatoriedade no backend (20min) OK
+# Implementar Sistema para ficar ONLINE/OFFLINE (30min) OK
+# Implementar JS check de obrigatoriedade no grupo  (15min) OK
+# Implementar botao para Finalizar Pedido (10 min) OK
 
 
-def get_pedido(request, id_loja):
-    try:
-        return Pedido.objects.get(id=request.session['pedido'])
-    except (Exception,):
-        estabelecimento = Estabelecimento.objects.get(id=id_loja)
-        pedido = Pedido(cliente=request.user.cliente, estabelecimento=estabelecimento)
-        pedido.save()
-        request.session['pedido'] = pedido.id
-        print('SESSION PEDIDO: ' + str(request.session['pedido']))
-        return pedido
-
-
-def add_cart(request, id_loja):
-    print('loja: ' + str(id_loja))
-    if is_logged(request):
-        checks = request.POST.getlist('checks')
-        print('--------------')
-        pedido = get_pedido(request, id_loja)
-        print('teste: ' + str(pedido.estabelecimento.id))
-        print('check: ' + str(check_same_store(id_loja, pedido)))
-        print('produton in : ' + str('produto' in request.POST))
-        if check_same_store(id_loja, pedido) and ('produto' in request.POST):
-            produto = Produto.objects.get(id=request.POST['produto'])
-            obs = request.POST['observacoes']
-            cria_item_pedido(checks, pedido, produto, obs)
-        else:
-            messages.error(request, u'Você deve comprar produtos no mesmo estabelecimento')
-            return redirect('/loja/' + str(pedido.estabelecimento.id))
-        pedido.save()
-        print('loja: ' + str(id_loja))
-        return redirect('/loja/' + str(pedido.estabelecimento.id))
-    messages.error(request, u'Para fazer um pedido você deve estar logado')
-    return redirect('/define/login')
-
-
-def remove_cart(request, pk):
-    pedido = Pedido.objects.get(id=request.session['pedido'])
-    print(request.session)
-    del request.session['pedido']
-    print(request.session)
-    pedido.delete()
-    messages.success(request, 'Pedido deletado com sucesso')
-    return redirect('/')  # redirecionar para a loja
-
-# Refactor HomeView (10min)
-# Implementar check na obrigatoriedade no backend (20min)
-# Implementar Sistema para ficar ONLINE/OFFLINE (30min)
-# Implementar JS check de obrigatoriedade no grupo  (15min)
-# Implementar botao para Finalizar Pedido (10 min)
+# Implementar Verificacao no back com messages se Loja is Online apos clicar no botao Finalizar Pedido
 # Implementar tela de inserir dados de entrega,  (1h30)
 
 # Implementar Notificacao de Pedido para Loja (painel)  (1h30)

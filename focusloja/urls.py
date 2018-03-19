@@ -17,6 +17,8 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 
+from app.views.loja.CarrinhoView import add_cart
+from app.views.loja.CarrinhoView import remove_cart
 from app.views.loja.LoginView import *
 from app.views.painel.dashboard.DashboardView import DashboardPedidosListView
 from app.views.painel.login.LoginView import LojaLoginView, LojaLogoutView
@@ -90,4 +92,6 @@ urlpatterns = [
     url(r'^add-cart/(?P<id_loja>[0-9]+)/$', add_cart, name='add_cart'),
 
     url(r'^delete-pedido/(?P<pk>[0-9]+)/$', remove_cart, name='delete_pedido'),
+
+    url(r'set-online/$', SetOnlineView.as_view(), name='set_online'),
 ]
