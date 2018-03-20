@@ -1,5 +1,8 @@
-# coding=utf-8
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+
+from datetime import time, datetime
 
 from django.contrib.auth.models import User
 from django.db import models
@@ -15,8 +18,30 @@ class TimeStamped(models.Model):
     published_at = models.DateTimeField(auto_now=True)
 
 
+class ConfiguracaoSistema(TimeStamped):
+    class Meta:
+        verbose_name = u'Configuração do Sistema'
+        verbose_name_plural = u'Configuração do Sistema'
+
+    is_feriado = models.BooleanField(default=False)
+
+    # is_promo = models.BooleanField(default=False)
+    # start_promo = models.DateField(blank=True, null=True)
+    # end_promo = models.DateField(blank=True, null=True)
+
+    def __str__(self):
+        return u'Configuração Sistema'
+
+    def __unicode__(self):
+        return u'Configuração Sistema'
+
+
 class Bairro(TimeStamped):
     nome = models.CharField(max_length=100, blank=True)
+    valor = models.CharField(max_length=3, default='6')
+    valor_madrugada = models.CharField(max_length=3, default='8')
+    valor_madrugada_feriado = models.CharField(max_length=3, default='11')
+    valor_feriado = models.CharField(max_length=3, default='9')
 
     def __unicode__(self):
         return u'%s' % self.nome
@@ -58,7 +83,7 @@ PLANS = (
 )
 
 
-class Cliente(TimeStamped,):
+class Cliente(TimeStamped, ):
     usuario = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
     cpf = models.CharField(max_length=12, blank=True, null=True, default="", unique=True)
     foto = models.URLField(blank=True, null=True, default="http://placehold.it/100x100")
@@ -78,8 +103,27 @@ class Cliente(TimeStamped,):
 class Endereco(TimeStamped, BaseAddress):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     endereco_completo = models.CharField(max_length=300, blank=True, null=True)
+    valor_entrega = models.CharField(max_length=3, blank=True, null=True, default='6')
 
     def save(self, *args, **kwargs):
+        config = ConfiguracaoSistema.objects.first()
+        valor = 0
+        now_time = datetime.now().time()
+        if config.is_feriado:
+            if time(22, 59) <= now_time <= time(23, 59):
+                valor = valor + int(self.bairro.valor_madrugada_feriado)
+            elif time(0, 00) <= now_time <= time(5, 59):
+                valor = valor + int(self.bairro.valor_madrugada_feriado)
+            else:
+                valor = valor + int(self.bairro.valor_feriado)
+        else:
+            if time(22, 59) <= now_time <= time(23, 59):
+                valor = valor + int(self.bairro.valor_madrugada)
+            elif time(0, 00) <= now_time <= time(5, 59):
+                valor = valor + int(self.bairro.valor_madrugada)
+            else:
+                valor = valor + int(self.bairro.valor)
+        self.valor_entrega = valor
         try:
             endereco = self.endereco + ", " + self.numero + ",Campina Grande,PB"
             self.endereco_completo = endereco
@@ -194,6 +238,10 @@ class Grupo(TimeStamped):
 
 
 class Opcional(TimeStamped):
+    class Meta:
+        verbose_name = u'Opcional'
+        verbose_name_plural = u'Opcionais'
+
     nome = models.CharField(max_length=100)
     grupo = models.ForeignKey(Grupo, blank=True, null=True, on_delete=models.CASCADE)
     valor = models.CharField(max_length=10)
@@ -206,6 +254,10 @@ class Opcional(TimeStamped):
 
 
 class FotoProduto(TimeStamped):
+    class Meta:
+        verbose_name = u'Foto de Produto'
+        verbose_name_plural = u'Foto de Produtos'
+
     produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
     url = models.URLField(blank=True, null=True)
 
@@ -234,6 +286,10 @@ TIPOS_CARTAO = (
 
 
 class FormaPagamento(TimeStamped):
+    class Meta:
+        verbose_name = u'Forma de Pagamento'
+        verbose_name_plural = u'Formas de Pagamento'
+
     forma = models.CharField(max_length=100, choices=TIPOS_PAGAMENTO, blank=True, null=True, default="DINHEIRO")
     cartao = models.CharField(max_length=100, choices=TIPOS_CARTAO, blank=True, null=True)
     estabelecimento = models.ForeignKey(Estabelecimento, on_delete=models.CASCADE)
@@ -252,6 +308,10 @@ TIPOS_ENTREGA = (
 
 
 class FormaEntrega(TimeStamped):
+    class Meta:
+        verbose_name = u'Forma de Entrega'
+        verbose_name_plural = u'Formas de Entrega'
+
     forma = models.CharField(max_length=100, choices=TIPOS_ENTREGA, blank=True, null=True, default="MOTOBOY")
     estabelecimento = models.ForeignKey(Estabelecimento, on_delete=models.CASCADE)
 
@@ -266,6 +326,7 @@ class Pedido(TimeStamped):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     estabelecimento = models.ForeignKey(Estabelecimento, on_delete=models.CASCADE)
     status_pedido = models.CharField(max_length=100, choices=STATUS, blank=True, null=True, default='AGUARDANDO')
+    subtotal = models.CharField(max_length=10, blank=True, null=True)
     valor_total = models.CharField(max_length=10, blank=True, null=True)
     troco = models.CharField(max_length=10, blank=True, null=True)
     forma_pagamento = models.ForeignKey(FormaPagamento, blank=True, null=True, on_delete=models.CASCADE)
@@ -279,14 +340,23 @@ class Pedido(TimeStamped):
         return u'%s - %s - %s - %s' % (self.id, self.cliente, self.estabelecimento, self.valor_total)
 
     def save(self, *args, **kwargs):
-        valor = 0.0
+        subtotal = 0.0
         for item in self.itempedido_set.all():
-            valor = float(valor) + float(item.valor_total)
-        self.valor_total = float(valor)
+            subtotal = float(subtotal) + float(item.valor_total)
+        self.subtotal = float(subtotal)
+        if self.endereco_entrega:
+            total = float(self.subtotal) + float(self.endereco_entrega.valor_entrega)
+            self.valor_total = total
+        else:
+            self.valor_total = subtotal
         super(Pedido, self).save(*args, **kwargs)
 
 
 class ItemPedido(TimeStamped):
+    class Meta:
+        verbose_name = u'Item de Pedido'
+        verbose_name_plural = u'Itens de Pedido'
+
     pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
     produto = models.ForeignKey(Produto)
     quantidade = models.CharField(max_length=10, blank=True, null=True, default="1")
@@ -311,6 +381,10 @@ class ItemPedido(TimeStamped):
 
 
 class OpcionalChoice(TimeStamped):
+    class Meta:
+        verbose_name = u'Opcional Escolhido'
+        verbose_name_plural = u'Opcionais Escolhidos'
+
     opcional = models.ForeignKey(Opcional, on_delete=models.CASCADE)
     item_pedido = models.ForeignKey(ItemPedido)
 
@@ -328,6 +402,10 @@ type_notification = (
 
 
 class Notificacao(TimeStamped):
+    class Meta:
+        verbose_name = u'Notificação'
+        verbose_name_plural = u'Notificações'
+
     message = models.TextField()
     to = models.ForeignKey(User, on_delete=models.CASCADE)
     type_message = models.CharField(choices=type_notification, max_length=100)
@@ -341,6 +419,10 @@ class Notificacao(TimeStamped):
 
 
 class Mensagem(TimeStamped):
+    class Meta:
+        verbose_name = u'Mensagem'
+        verbose_name_plural = u'Mensagens'
+
     u_from = models.ForeignKey(User, on_delete=models.CASCADE, related_name='u_from')
     u_to = models.ForeignKey(User, on_delete=models.CASCADE, related_name='u_to')
     text = models.TextField()
@@ -353,7 +435,11 @@ class Mensagem(TimeStamped):
         return u'De: %s Para: %s' % (self.u_from, self.u_to)
 
 
-class Classificacao(TimeStamped):
+class Avaliacao(TimeStamped):
+    class Meta:
+        verbose_name = u'Avaliação'
+        verbose_name_plural = u'Avaliações'
+
     pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
     nota = models.CharField(max_length=2)
 

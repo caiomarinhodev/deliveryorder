@@ -1,6 +1,8 @@
 {% extends 'loja/base.html' %}
 {% load staticfiles %}
 
+{% load filters %}
+
 {% block content %}
     <style>
         .bg-red {
@@ -37,7 +39,8 @@
                                                     <input type="radio"
                                                            name="endereco"
                                                            value="{{ endereco.id }}"/>
-                                                    Entrega (R$ 6.00)
+                                                    Entrega (R$ {% if user|is_madrugada %}{{ endereco.bairro.valor_madrugada|floatformat:2 }}){% else %}{{ endereco.bairro.valor|floatformat:2 }}){% endif %}
+
                                                     {{ endereco.endereco_completo }}
                                                 </label>
                                             </div>
@@ -79,7 +82,10 @@
                                                 <select class="form-control" id="id_bairro" name="bairro">
                                                     <option value="" selected="selected">---------</option>
                                                     {% for bairro in bairros %}
-                                                        <option value="{{ bairro.id }}">{{ bairro.nome }}</option>
+                                                        <option value="{{ bairro.id }}">{{ bairro.nome }}
+
+                                                        (R$ {% if user|is_madrugada %}{{ bairro.valor_madrugada|floatformat:2 }}){% else %}{{ bairro.valor|floatformat:2 }}){% endif %}
+                                                        </option>
                                                     {% endfor %}
 
                                                 </select>
@@ -185,30 +191,30 @@
                                                 <tr class="subtotal">
                                                     <th>Subtotal</th>
                                                     {% if pedido_obj %}
-                                                        <th>R$ {{ pedido_obj.valor_total|floatformat:2 }}</th>
+                                                        <th>R$ {{ pedido_obj.subtotal|floatformat:2 }}</th>
                                                     {% endif %}
                                                 </tr>
                                                 <tr class="valor_entrega">
                                                     <td>Valor da entrega</td>
                                                     {% if pedido_obj %}
-                                                        <td>R$ 6.00</td>
+                                                        <td>R$ {{ pedido_obj.endereco_entrega.valor_entrega|floatformat:2 }}</td>
                                                     {% endif %}
                                                 </tr>
                                                 <tr class="total">
                                                     <th>Total</th>
                                                     {% if pedido_obj %}
-                                                        <th>R$ 0.00</th>
+                                                        <th>R$ {{ pedido_obj.valor_total }}</th>
                                                     {% endif %}
                                                 </tr>
 
                                                 </tbody>
                                             </table>
                                             <a href="#" class="btn btn-danger
-                                                {% if not loja.is_online or not pedido_obj.itempedido_set.first %}
+                                                {% if not pedido_obj.estabelecimento.is_online or not pedido_obj.itempedido_set.first %}
                                                 disabled
                                                 {% endif %}
                                                 "
-                                                    {% if not loja.is_online or not pedido_obj.itempedido_set.first %}
+                                                    {% if not pedido_obj.estabelecimento.is_online or not pedido_obj.itempedido_set.first %}
                                                disabled="disabled"
                                                     {% endif %}
                                             >Finalizar Pedido</a>

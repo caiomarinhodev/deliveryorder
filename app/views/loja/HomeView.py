@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+from django.shortcuts import redirect
 from django.views.generic import ListView, DetailView
 from django.views.generic import RedirectView
 
-from app.models import Estabelecimento
+from app.models import Estabelecimento, Bairro
 from app.views.mixins.Mixin import LojaFocusMixin
 
 
@@ -33,6 +34,77 @@ class SetOnlineView(RedirectView):
         else:
             return '/define/login'
 
+
+def script(request):
+    list_names = ['Acacio Figueiredo',
+                  'Alameda',
+                  'Alto Branco',
+                  'Araxa',
+                  'Bairro das Cidades',
+                  'Bairro das Nacoes',
+                  'Bairro Universitario',
+                  'Bela Vista',
+                  'Bodocongo',
+                  'Caatingueira',
+                  'Catole',
+                  'Centenario',
+                  'Centro',
+                  'Cinza',
+                  'Conceicao',
+                  'Cruzeiro',
+                  'Cuites',
+                  'Dinamerica',
+                  'Distrito Industrial',
+                  'Estacao Velha',
+                  'Gloria',
+                  'Itarare',
+                  'Jardim Continental',
+                  'Jardim Paulistano',
+                  'Jardim Tavares',
+                  'Jardim Verdejante',
+                  'Jeremias',
+                  'Joao Paulo II',
+                  'Jose Pinheiro',
+                  'Lauritzen',
+                  'Liberdade',
+                  'Ligeiro',
+                  'Louzeiro',
+                  'Major Veneziano',
+                  'Malvinas',
+                  'Mirante',
+                  'Monte Castelo',
+                  'Monte Santo',
+                  'Nova Brasilia',
+                  'Novo Bodocongo',
+                  'Novo Cruzeiro',
+                  'Novo Horizonte',
+                  'Palmeira',
+                  'Palmeira Imperial',
+                  'Pedregal',
+                  'Portal Sudoeste',
+                  'Prata',
+                  'Presidente Medici',
+                  'Quarenta',
+                  'Ramadinha',
+                  'Rocha Cavalcante',
+                  'Rosa Cruz',
+                  'Sandra Cavalcante',
+                  'Santa Cruz',
+                  'Santa Rosa',
+                  'Santo Antonio',
+                  'Sao Jose',
+                  'Serrotao',
+                  'Severino Cabral',
+                  'Tambor',
+                  'Tres Irmas',
+                  'Velame',
+                  'Vila Cabral de Santa Rosa',
+                  'Vila Cabral de Santa Terezinha']
+    for name in list_names:
+        b = Bairro(nome=name)
+        b.save()
+    return redirect('/')
+
 # Refactor HomeView (10min) OK
 # Implementar check na obrigatoriedade no backend (20min) OK
 # Implementar Sistema para ficar ONLINE/OFFLINE (30min) OK
@@ -41,8 +113,9 @@ class SetOnlineView(RedirectView):
 # Implementar Verificacao no back com messages se Loja is Online apos clicar no botao Finalizar Pedido (30min) OK
 # Implementar tela de inserir dados de entrega,  (1h30) OK
 
-# Implementar valor em Bairro. Prepopular bairros no banco. (30min)
-# Implementar subtotal e calculos no model Pedido. (30min)
+# Implementar valor em Bairro. Prepopular bairros no banco. (30min) OK
+# Implementar subtotal e calculos no model Pedido. (30min)  OK
+
 # Implementar atualizacao de total em finalizar entrega subtotal + entrega. (20min)
 # Implementar Notificacao de Pedido para Loja (painel)  (1h30)
 

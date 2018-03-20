@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
 
-from app.models import Categoria, Classificacao, Notificacao
+from app.models import Categoria, Avaliacao, Notificacao
 from app.views.mixins.Mixin import FocusMixin
 
 

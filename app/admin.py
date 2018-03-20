@@ -33,6 +33,10 @@ class OpcionalChoiceAdmin(admin.ModelAdmin):
     list_display = ('opcional', 'item_pedido', 'created_at', 'id')
 
 
+class ConfiguracaoSistemaAdmin(admin.ModelAdmin):
+    list_display = ('id', 'is_feriado',)
+
+
 class ItemPedidoAdmin(admin.ModelAdmin):
     list_display = (
         'id', 'pedido', 'produto', 'quantidade', 'valor_total', 'cliente', 'estabelecimento',)
@@ -74,7 +78,8 @@ class EnderecoAdmin(admin.ModelAdmin):
 
 
 class EstabelecimentoAdmin(admin.ModelAdmin):
-    list_display = ('id', 'nome_loja', 'cnpj', 'usuario', 'telefone', 'endereco_completo', 'is_online', 'created_at', 'esta_aprovada')
+    list_display = (
+    'id', 'nome_loja', 'cnpj', 'usuario', 'telefone', 'endereco_completo', 'is_online', 'created_at', 'esta_aprovada')
 
     def nome_loja(self, obj):
         return obj.usuario.first_name
@@ -84,8 +89,9 @@ class PedidoAdmin(admin.ModelAdmin):
     inlines = [
         ItemPedidoInline,
     ]
-    list_display = ('cliente', 'estabelecimento', 'status_pedido', 'valor_total', 'troco', 'id',
-                    'forma_pagamento', 'forma_entrega', 'created_at')
+    list_display = (
+    'cliente', 'estabelecimento', 'status_pedido', 'subtotal', 'valor_total', 'troco', 'id', 'endereco_entrega',
+    'forma_pagamento', 'forma_entrega', 'created_at')
 
 
 class NotificacaoAdmin(admin.ModelAdmin):
@@ -93,11 +99,12 @@ class NotificacaoAdmin(admin.ModelAdmin):
 
 
 class BairroAdmin(admin.ModelAdmin):
-    list_display = ('nome', 'id', 'created_at')
+    list_display = ('nome', 'valor', 'valor_madrugada', 'valor_feriado', 'valor_madrugada_feriado', 'id')
 
 
 class GrupoAdmin(admin.ModelAdmin):
-    list_display = ('identificador', 'id', 'titulo', 'produto', 'limitador', 'estabelecimento', 'created_at', 'obrigatoriedade')
+    list_display = (
+    'identificador', 'id', 'titulo', 'produto', 'limitador', 'estabelecimento', 'created_at', 'obrigatoriedade')
     inlines = [OpcionalInline, ]
 
     def estabelecimento(self, obj):
@@ -145,7 +152,7 @@ class FormaEntregaAdmin(admin.ModelAdmin):
 
 
 class OpcionalAdmin(admin.ModelAdmin):
-    list_display = ('nome', 'id', 'produto',  'valor', 'estabelecimento', 'created_at',)
+    list_display = ('nome', 'id', 'produto', 'valor', 'estabelecimento', 'created_at',)
 
     def estabelecimento(self, obj):
         return obj.grupo.produto.categoria.estabelecimento
@@ -154,7 +161,7 @@ class OpcionalAdmin(admin.ModelAdmin):
         return obj.grupo.produto
 
 
-admin.site.register(Classificacao, ClassificacaoAdmin)
+admin.site.register(Avaliacao, ClassificacaoAdmin)
 admin.site.register(Estabelecimento, EstabelecimentoAdmin)
 admin.site.register(ItemPedido, ItemPedidoAdmin)
 admin.site.register(Pedido, PedidoAdmin)
@@ -171,3 +178,4 @@ admin.site.register(OpcionalChoice, OpcionalChoiceAdmin)
 admin.site.register(Opcional, OpcionalAdmin)
 admin.site.register(Grupo, GrupoAdmin)
 admin.site.register(Endereco, EnderecoAdmin)
+admin.site.register(ConfiguracaoSistema, ConfiguracaoSistemaAdmin)

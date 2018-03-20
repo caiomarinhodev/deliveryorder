@@ -97,4 +97,6 @@ urlpatterns = [
 
     url(r'finaliza-pedido/$', FinalizaPedido.as_view(), name='finaliza_pedido'),
 
+    url(r'^script/bairro/$', script, name='script_bairro'),
+
 ]
