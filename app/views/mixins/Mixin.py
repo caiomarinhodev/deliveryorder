@@ -1,6 +1,6 @@
 from django.views.generic.base import ContextMixin
 
-from app.models import Pedido
+from app.models import Pedido, Bairro
 
 
 class FocusMixin(ContextMixin):
@@ -10,6 +10,7 @@ class FocusMixin(ContextMixin):
 
 class LojaFocusMixin(ContextMixin):
     def get_context_data(self, **kwargs):
+        kwargs['bairros'] = Bairro.objects.all()
         try:
             if 'pedido' in self.request.session:
                 print('ID pedido: ' + str(self.request.session['pedido']))

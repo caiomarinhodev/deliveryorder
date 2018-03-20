@@ -38,11 +38,12 @@ class SetOnlineView(RedirectView):
 # Implementar Sistema para ficar ONLINE/OFFLINE (30min) OK
 # Implementar JS check de obrigatoriedade no grupo  (15min) OK
 # Implementar botao para Finalizar Pedido (10 min) OK
+# Implementar Verificacao no back com messages se Loja is Online apos clicar no botao Finalizar Pedido (30min) OK
+# Implementar tela de inserir dados de entrega,  (1h30) OK
 
-
-# Implementar Verificacao no back com messages se Loja is Online apos clicar no botao Finalizar Pedido (30min)
-# Implementar tela de inserir dados de entrega,  (1h30)
-
+# Implementar valor em Bairro. Prepopular bairros no banco. (30min)
+# Implementar subtotal e calculos no model Pedido. (30min)
+# Implementar atualizacao de total em finalizar entrega subtotal + entrega. (20min)
 # Implementar Notificacao de Pedido para Loja (painel)  (1h30)
 
 # Implementar tela de Acompanhar Pedido. (2h)

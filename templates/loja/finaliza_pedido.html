@@ -1,0 +1,234 @@
+{% extends 'loja/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <style>
+        .bg-red {
+            color: red;
+        {#background-color: red;#}
+        }
+
+        .bg-green {
+            color: green;
+        {#background-color: green;#}
+        }
+    </style>
+    {#    {% include 'carrossel.html' %}#}
+    <section class="bar background-white no-mb">
+        <div class="container">
+            <div class="heading text-center">
+                <h3>Finalizando Pedido em {{ pedido_obj.estabelecimento }}</h3>
+            </div>
+            <form method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                        <div class="box box-info">
+                            <div class="box-header with-border">
+                                <h4 class="box-title">Forma de Entrega</h4>
+                            </div>
+                            <!-- /.box-header -->
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        {% for endereco in user.cliente.endereco_set.all %}
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio"
+                                                           name="endereco"
+                                                           value="{{ endereco.id }}"/>
+                                                    Entrega (R$ 6.00)
+                                                    {{ endereco.endereco_completo }}
+                                                </label>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="radio">
+                                            <label>
+                                                <input type="checkbox"
+                                                       name="novo"
+                                                       value="{{ endereco.id }}"/>
+                                                Cadastrar um novo endereço
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="display: none;" id="novo-div">
+                                    <div class="col-md-12">
+                                        <div class="col-xs-12">
+                                            <div class="form-group">
+                                                <label for="street">Endereço:</label>
+                                                <input class="form-control" name="rua" id="rua"
+                                                       placeholder="Rua Aprigio Nepomuceno"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12">
+                                            <div class="form-group">
+                                                <label for="street">Número:</label>
+                                                <input class="form-control numero" id="id_numero" maxlength="6"
+                                                       name="numero" placeholder="Número" type="text">
+                                            </div>
+                                        </div>
+                                        <!-- /.row -->
+                                        <div class="col-xs-12">
+                                            <div class="form-group">
+                                                <label for="city">Bairro:</label>
+                                                <select class="form-control" id="id_bairro" name="bairro">
+                                                    <option value="" selected="selected">---------</option>
+                                                    {% for bairro in bairros %}
+                                                        <option value="{{ bairro.id }}">{{ bairro.nome }}</option>
+                                                    {% endfor %}
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12">
+                                            <div class="form-group">
+                                                <label for="street">Complemento:</label>
+                                                <input class="form-control" id="complemento" maxlength="6"
+                                                       name="complemento" placeholder="Complemento" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <script>
+                                    $(document).ready(function () {
+                                        $('[name=novo]').change(function () {
+                                            if ($(this).is(':checked')) {
+                                                $('[name=endereco]').prop('checked', false);
+                                                $('#novo-div').show();
+                                            } else {
+                                                $('#novo-div').hide();
+                                            }
+                                        });
+                                    })
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                        <div class="box box-info">
+                            <div class="box-header with-border">
+                                <h4 class="box-title">Forma de Pagamento</h4>
+                            </div>
+                            <!-- /.box-header -->
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        {% for pgto in pedido_obj.estabelecimento.formapagamento_set.all %}
+                                            {% if pgto.forma == 'DINHEIRO' %}
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="radio">
+                                                            <label>
+                                                                <input type="radio"
+                                                                       name="pgto"
+                                                                       value="{{ pgto.id }}"/>
+                                                                {{ pgto.forma }} {% if pgto.cartao %}
+                                                                {{ pgto.cartao }}  {% endif %}
+                                                            </label>
+                                                        </div>
+                                                        <p> Precisa de troco? Para quanto? <input class="form-control"
+                                                                                                  name="troco"
+                                                                                                  id="troco"
+                                                                                                  placeholder="0.00"/>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <hr/>
+                                            {% else %}
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio"
+                                                               name="pgto"
+                                                               value="{{ pgto.id }}"/>
+                                                        {{ pgto.forma }} {% if pgto.cartao %}
+                                                        {{ pgto.cartao }}  {% endif %}
+                                                    </label>
+                                                </div>
+                                            {% endif %}
+
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                        <div class="box box-info">
+                            <div class="box-header with-border">
+                                <h4 class="box-title">Meu pedido</h4>
+                            </div>
+                            <!-- /.box-header -->
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th>Produto</th>
+                                                <th>Preço</th>
+                                            </tr>
+                                            </thead>
+                                                <tbody>
+                                                {% for itempedido in pedido_obj.itempedido_set.all %}
+                                                    <tr>
+                                                        <td>{{ itempedido.produto.nome }}</td>
+                                                        <td>R$ {{ itempedido.valor_total|floatformat:2 }}</td>
+                                                    </tr>
+                                                {% endfor %}
+                                                <tr class="subtotal">
+                                                    <th>Subtotal</th>
+                                                    {% if pedido_obj %}
+                                                        <th>R$ {{ pedido_obj.valor_total|floatformat:2 }}</th>
+                                                    {% endif %}
+                                                </tr>
+                                                <tr class="valor_entrega">
+                                                    <td>Valor da entrega</td>
+                                                    {% if pedido_obj %}
+                                                        <td>R$ 6.00</td>
+                                                    {% endif %}
+                                                </tr>
+                                                <tr class="total">
+                                                    <th>Total</th>
+                                                    {% if pedido_obj %}
+                                                        <th>R$ 0.00</th>
+                                                    {% endif %}
+                                                </tr>
+
+                                                </tbody>
+                                            </table>
+                                            <a href="#" class="btn btn-danger
+                                                {% if not loja.is_online or not pedido_obj.itempedido_set.first %}
+                                                disabled
+                                                {% endif %}
+                                                "
+                                                    {% if not loja.is_online or not pedido_obj.itempedido_set.first %}
+                                               disabled="disabled"
+                                                    {% endif %}
+                                            >Finalizar Pedido</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </section>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#inicio').addClass('active');
+        });
+    </script>
+
+{% endblock %}

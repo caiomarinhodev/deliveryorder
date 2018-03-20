@@ -21,11 +21,6 @@
             </div>
             <div class="row">
                 <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
                     <div class="row">
                         <div class="well well-sm text-center">
                             <div class="media">
@@ -310,7 +305,7 @@
 
                                 </tbody>
                             </table>
-                            <a href="#" class="btn btn-danger
+                            <a href="{% url 'finaliza_pedido' %}" class="btn btn-danger
                                                 {% if not loja.is_online or not pedido_obj.itempedido_set.first %}
                                                 disabled
                                                 {% endif %}

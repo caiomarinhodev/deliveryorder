@@ -1,9 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
+from django.views.generic import TemplateView
 
 from app.models import ItemPedido, Opcional, OpcionalChoice, Cliente, Pedido, Estabelecimento, Produto
+from app.views.mixins.Mixin import LojaFocusMixin
 
 
 def check_same_store(id_loja, pedido):
@@ -84,7 +87,7 @@ def remove_cart(request, pk):
     print(request.session)
     pedido.delete()
     messages.success(request, 'Pedido deletado com sucesso')
-    return redirect('/loja/'+str(id_loja))  # redirecionar para a loja
+    return redirect('/loja/' + str(id_loja))  # redirecionar para a loja
 
 
 def check_required_selected(checks, list):
@@ -98,3 +101,18 @@ def check_required_selected(checks, list):
         else:
             return True
 
+
+def check_loja_is_online(request):
+    loja = Pedido.objects.get(id=request.session['pedido']).estabelecimento
+    return loja.is_online
+
+
+class FinalizaPedido(LoginRequiredMixin, TemplateView, LojaFocusMixin):
+    template_name = 'loja/finaliza_pedido.html'
+    login_url = '/define/login'
+
+    def get(self, request, *args, **kwargs):
+        if not check_loja_is_online(self.request):
+            messages.error(self.request, u'A Loja não está mais online para receber pedidos.')
+            return redirect('/')
+        return super(FinalizaPedido, self).get(request, *args, **kwargs)
