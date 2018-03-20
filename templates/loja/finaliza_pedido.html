@@ -38,7 +38,8 @@
                                                 <label>
                                                     <input type="radio"
                                                            name="endereco"
-                                                           value="{{ endereco.id }}"/>
+                                                           value="{{ endereco.id }}"
+                                                           data-valor="{% if user|is_madrugada %}{{ endereco.bairro.valor_madrugada|floatformat:2 }}{% else %}{{ endereco.bairro.valor|floatformat:2 }}{% endif %}"/>
                                                     Entrega (R$ {% if user|is_madrugada %}{{ endereco.bairro.valor_madrugada|floatformat:2 }}){% else %}{{ endereco.bairro.valor|floatformat:2 }}){% endif %}
 
                                                     {{ endereco.endereco_completo }}
@@ -80,11 +81,9 @@
                                             <div class="form-group">
                                                 <label for="city">Bairro:</label>
                                                 <select class="form-control" id="id_bairro" name="bairro">
-                                                    <option value="" selected="selected">---------</option>
                                                     {% for bairro in bairros %}
-                                                        <option value="{{ bairro.id }}">{{ bairro.nome }}
-
-                                                        (R$ {% if user|is_madrugada %}{{ bairro.valor_madrugada|floatformat:2 }}){% else %}{{ bairro.valor|floatformat:2 }}){% endif %}
+                                                        <option value="{{ bairro.id }}" data-valor="{% if user|is_madrugada %}{{ bairro.valor_madrugada|floatformat:2 }}{% else %}{{ bairro.valor|floatformat:2 }}{% endif %}">
+                                                            {{ bairro.nome }}  (R$ {% if user|is_madrugada %}{{ bairro.valor_madrugada|floatformat:2 }}){% else %}{{ bairro.valor|floatformat:2 }}){% endif %}
                                                         </option>
                                                     {% endfor %}
 
@@ -107,6 +106,9 @@
                                             if ($(this).is(':checked')) {
                                                 $('[name=endereco]').prop('checked', false);
                                                 $('#novo-div').show();
+
+                                                $('#valor_entrega').text('');
+                                                $('#total').text('');
                                             } else {
                                                 $('#novo-div').hide();
                                             }
@@ -175,12 +177,12 @@
                                     <div class="col-md-12">
                                         <div class="table-responsive">
                                             <table class="table">
-                                            <thead>
-                                            <tr>
-                                                <th>Produto</th>
-                                                <th>Preço</th>
-                                            </tr>
-                                            </thead>
+                                                <thead>
+                                                <tr>
+                                                    <th>Produto</th>
+                                                    <th>Preço</th>
+                                                </tr>
+                                                </thead>
                                                 <tbody>
                                                 {% for itempedido in pedido_obj.itempedido_set.all %}
                                                     <tr>
@@ -197,14 +199,34 @@
                                                 <tr class="valor_entrega">
                                                     <td>Valor da entrega</td>
                                                     {% if pedido_obj %}
-                                                        <td>R$ {{ pedido_obj.endereco_entrega.valor_entrega|floatformat:2 }}</td>
+                                                        <td id="valor_entrega">
+                                                            R$ {{ pedido_obj.endereco_entrega.valor_entrega|floatformat:2 }}</td>
                                                     {% endif %}
                                                 </tr>
                                                 <tr class="total">
                                                     <th>Total</th>
                                                     {% if pedido_obj %}
-                                                        <th>R$ {{ pedido_obj.valor_total }}</th>
+                                                        <th id="total"></th>
                                                     {% endif %}
+                                                    <script>
+                                                        $(document).ready(function () {
+                                                            $('[name=endereco]').change(function () {
+                                                                if ($(this).is(':checked')) {
+                                                                    var valor_endereco = parseFloat($(this).data('valor'));
+                                                                    var valor_subtotal = parseFloat('{{ pedido_obj.subtotal }}');
+                                                                    $('#valor_entrega').text(valor_endereco.toFixed(2));
+                                                                    $('#total').text(parseFloat(valor_endereco + valor_subtotal).toFixed(2));
+                                                                }
+                                                            });
+
+                                                            $('[name=bairro]').change(function () {
+                                                                var valor_endereco = parseFloat($('[name=bairro] option:selected').data('valor'));
+                                                                var valor_subtotal = parseFloat('{{ pedido_obj.subtotal }}');
+                                                                $('#valor_entrega').text(valor_endereco.toFixed(2));
+                                                                $('#total').text(parseFloat(valor_endereco + valor_subtotal).toFixed(2));
+                                                            });
+                                                        });
+                                                    </script>
                                                 </tr>
 
                                                 </tbody>
