@@ -3,9 +3,10 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, RedirectView
 
-from app.models import ItemPedido, Opcional, OpcionalChoice, Cliente, Pedido, Estabelecimento, Produto
+from app.models import ItemPedido, Opcional, OpcionalChoice, Cliente, Pedido, Estabelecimento, Produto, Endereco, \
+    Bairro, FormaPagamento, FormaEntrega
 from app.views.mixins.Mixin import LojaFocusMixin
 
 
@@ -116,3 +117,70 @@ class FinalizaPedido(LoginRequiredMixin, TemplateView, LojaFocusMixin):
             messages.error(self.request, u'A Loja não está mais online para receber pedidos.')
             return redirect('/')
         return super(FinalizaPedido, self).get(request, *args, **kwargs)
+
+
+def submit_pedido(request):
+    data = request.POST
+    cliente = request.user.cliente
+    pedido = Pedido.objects.get(id=request.session['pedido'])
+    troco = None
+    endereco = None
+    print(data)
+    if 'endereco' in data:
+        if data['endereco'] != '':
+            endereco = Endereco.objects.get(id=data['endereco'])
+            endereco.save()
+    else:
+        if ('bairro' in data) and ('rua' in data) and ('numero' in data) and ('complemento' in data):
+            if (data['bairro'] != u'') and (data['rua'] != u'' and (data['numero'] != u'')):
+                bairro = Bairro.objects.get(id=data['bairro'])
+                endereco = Endereco(cliente=cliente, bairro=bairro, endereco=data['rua'], numero=data['numero'],
+                                    complemento=data['complemento'])
+                endereco.save()
+        else:
+            messages.error(request, u'Selecione o endereco de entrega ou Informe o endereco de entrega')
+            return redirect('/finaliza-pedido/')
+    if 'pgto' in data:
+        if data['pgto'] != u'':
+            forma_pagamento = FormaPagamento.objects.get(id=data['pgto'])
+            print(forma_pagamento)
+            if forma_pagamento.forma == 'DINHEIRO':
+                if 'troco' in data:
+                    if data['troco'] != u'':
+                        troco = data['troco']
+                    else:
+                        messages.error(request, u'Insira o valor do Troco')
+                        return redirect('/finaliza-pedido/')
+                else:
+                    messages.error(request, u'Insira o valor do Troco')
+                    return redirect('/finaliza-pedido/')
+    else:
+        messages.error(request, u'Insira uma forma de pagamento')
+        return redirect('/finaliza-pedido/')
+    # if 'entrega' in data:
+    #     forma_entrega = FormaEntrega.objects.get(id=data['entrega'])
+    # else:
+    #     messages.error(request, u'Defina uma forma de entrega')
+    #     return redirect('/finaliza-pedido/')
+    pedido.forma_pagamento = forma_pagamento
+    # pedido.forma_entrega = forma_entrega
+    if troco:
+        pedido.troco = troco
+    else:
+        messages.error(request, u'Insira o valor do Troco')
+        return redirect('/finaliza-pedido/')
+    if endereco:
+        pedido.endereco_entrega = endereco
+    else:
+        messages.error(request, u'Selecione o endereco de entrega ou Informe o endereco de entrega')
+        return redirect('/finaliza-pedido/')
+    pedido.save()
+    messages.success(request, 'Pedido Realizado com Sucesso')
+    return redirect('/')
+
+
+class AcompanharPedido(LoginRequiredMixin, TemplateView, LojaFocusMixin):
+    template_name = ''
+
+    def get(self, request, *args, **kwargs):
+        return super(AcompanharPedido, self).get(request, *args, **kwargs)

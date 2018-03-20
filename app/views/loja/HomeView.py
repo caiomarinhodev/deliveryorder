@@ -115,8 +115,9 @@ def script(request):
 
 # Implementar valor em Bairro. Prepopular bairros no banco. (30min) OK
 # Implementar subtotal e calculos no model Pedido. (30min)  OK
+# Implementar atualizacao de total em finalizar entrega subtotal + entrega. (20min) OK
+# Implementar conclusao e submissao de Pedido pelo cliente. (45min) OK
 
-# Implementar atualizacao de total em finalizar entrega subtotal + entrega. (20min)
 # Implementar Notificacao de Pedido para Loja (painel)  (1h30)
 
 # Implementar tela de Acompanhar Pedido. (2h)

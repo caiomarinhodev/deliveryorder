@@ -17,7 +17,7 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 
-from app.views.loja.CarrinhoView import add_cart, FinalizaPedido
+from app.views.loja.CarrinhoView import add_cart, FinalizaPedido, submit_pedido
 from app.views.loja.CarrinhoView import remove_cart
 from app.views.loja.LoginView import *
 from app.views.painel.dashboard.DashboardView import DashboardPedidosListView
@@ -96,6 +96,8 @@ urlpatterns = [
     url(r'set-online/$', SetOnlineView.as_view(), name='set_online'),
 
     url(r'finaliza-pedido/$', FinalizaPedido.as_view(), name='finaliza_pedido'),
+
+    url(r'submit-pedido/$', submit_pedido, name='submit_pedido'),
 
     url(r'^script/bairro/$', script, name='script_bairro'),
 

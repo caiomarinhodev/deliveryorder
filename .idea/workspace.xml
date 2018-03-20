@@ -47,11 +47,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="91" column="0" lean-forward="false" selection-start-line="91" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
+            <state relative-caret-position="-1366">
+              <caret line="273" column="26" lean-forward="false" selection-start-line="273" selection-start-column="18" selection-end-line="273" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -60,11 +60,55 @@
       <file leaf-file-name="HomeView.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/loja/HomeView.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="117" column="0" lean-forward="false" selection-start-line="117" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
+            <state relative-caret-position="186">
+              <caret line="119" column="0" lean-forward="false" selection-start-line="119" selection-start-column="0" selection-end-line="119" selection-end-column="0" />
               <folding>
                 <element signature="e#46#83#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Mixin.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/mixins/Mixin.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="288">
+              <caret line="16" column="92" lean-forward="false" selection-start-line="16" selection-start-column="39" selection-end-line="16" selection-end-column="92" />
+              <folding>
+                <element signature="e#0#50#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CarrinhoView.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/loja/CarrinhoView.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="672">
+              <caret line="175" column="44" lean-forward="false" selection-start-line="175" selection-start-column="44" selection-end-line="175" selection-end-column="44" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/focusloja/urls.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="463">
+              <caret line="99" column="62" lean-forward="false" selection-start-line="99" selection-start-column="49" selection-end-line="99" selection-end-column="62" />
+              <folding>
+                <element signature="e#643#675#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="finaliza_pedido.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/loja/finaliza_pedido.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="622">
+              <caret line="95" column="107" lean-forward="false" selection-start-line="95" selection-start-column="107" selection-end-line="95" selection-end-column="107" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -74,16 +118,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="324">
               <caret line="18" column="28" lean-forward="false" selection-start-line="18" selection-start-column="28" selection-end-line="18" selection-end-column="28" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="finaliza_pedido.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/templates/loja/finaliza_pedido.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="339">
-              <caret line="224" column="113" lean-forward="false" selection-start-line="224" selection-start-column="113" selection-end-line="224" selection-end-column="113" />
               <folding />
             </state>
           </provider>
@@ -185,12 +219,12 @@
         <option value="$PROJECT_DIR$/static/css/switch.css" />
         <option value="$PROJECT_DIR$/templates/painel/base_painel.html" />
         <option value="$PROJECT_DIR$/templates/loja/view_produtos.html" />
-        <option value="$PROJECT_DIR$/app/views/loja/CarrinhoView.py" />
         <option value="$PROJECT_DIR$/app/views/mixins/Mixin.py" />
         <option value="$PROJECT_DIR$/app/admin.py" />
         <option value="$PROJECT_DIR$/app/templatetags/filters.py" />
         <option value="$PROJECT_DIR$/app/models.py" />
         <option value="$PROJECT_DIR$/focusloja/urls.py" />
+        <option value="$PROJECT_DIR$/app/views/loja/CarrinhoView.py" />
         <option value="$PROJECT_DIR$/app/views/loja/HomeView.py" />
         <option value="$PROJECT_DIR$/templates/loja/finaliza_pedido.html" />
       </list>
@@ -712,7 +746,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file:///usr/local/lib/python2.7/dist-packages/django/views/generic/detail.py" />
     <entry file="file://$USER_HOME$/delivery/static/plugins/jQuery/jQuery-2.2.0.min.js" />
     <entry file="file:///usr/local/lib/python2.7/dist-packages/django/contrib/auth/__init__.py" />
     <entry file="file://$PROJECT_DIR$/templates/loja/includes/header.html">
@@ -1037,32 +1070,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/focusloja/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="99" column="56" lean-forward="false" selection-start-line="99" selection-start-column="43" selection-end-line="99" selection-end-column="56" />
-          <folding>
-            <element signature="e#643#675#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/painel/produto/ProdutoView.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1156">
           <caret line="68" column="66" lean-forward="false" selection-start-line="68" selection-start-column="56" selection-end-line="68" selection-end-column="66" />
           <folding>
             <element signature="e#0#57#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/loja/CarrinhoView.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="142">
-          <caret line="109" column="64" lean-forward="true" selection-start-line="109" selection-start-column="64" selection-end-line="109" selection-end-column="64" />
-          <folding>
-            <element signature="e#46#81#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1077,34 +1090,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/mixins/Mixin.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="10" column="6" lean-forward="false" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
-          <folding>
-            <element signature="e#0#50#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="91" column="0" lean-forward="false" selection-start-line="91" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/loja/HomeView.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="117" column="0" lean-forward="false" selection-start-line="117" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
-          <folding>
-            <element signature="e#46#83#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/loja/escolhe_login.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="324">
@@ -1113,10 +1098,64 @@
         </state>
       </provider>
     </entry>
+    <entry file="file:///usr/local/lib/python2.7/dist-packages/django/views/generic/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-278">
+          <caret line="160" column="6" lean-forward="false" selection-start-line="160" selection-start-column="6" selection-end-line="160" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/mixins/Mixin.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="16" column="92" lean-forward="false" selection-start-line="16" selection-start-column="39" selection-end-line="16" selection-end-column="92" />
+          <folding>
+            <element signature="e#0#50#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/focusloja/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="463">
+          <caret line="99" column="62" lean-forward="false" selection-start-line="99" selection-start-column="49" selection-end-line="99" selection-end-column="62" />
+          <folding>
+            <element signature="e#643#675#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/loja/HomeView.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="119" column="0" lean-forward="false" selection-start-line="119" selection-start-column="0" selection-end-line="119" selection-end-column="0" />
+          <folding>
+            <element signature="e#46#83#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/loja/CarrinhoView.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="672">
+          <caret line="175" column="44" lean-forward="false" selection-start-line="175" selection-start-column="44" selection-end-line="175" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/templates/loja/finaliza_pedido.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="224" column="113" lean-forward="false" selection-start-line="224" selection-start-column="113" selection-end-line="224" selection-end-column="113" />
+        <state relative-caret-position="622">
+          <caret line="95" column="107" lean-forward="false" selection-start-line="95" selection-start-column="107" selection-end-line="95" selection-end-column="107" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1366">
+          <caret line="273" column="26" lean-forward="false" selection-start-line="273" selection-start-column="18" selection-end-line="273" selection-end-column="26" />
           <folding />
         </state>
       </provider>
