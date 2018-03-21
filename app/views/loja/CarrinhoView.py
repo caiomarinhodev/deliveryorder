@@ -3,7 +3,7 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
-from django.views.generic import TemplateView, RedirectView
+from django.views.generic import TemplateView, RedirectView, DetailView
 
 from app.models import ItemPedido, Opcional, OpcionalChoice, Cliente, Pedido, Estabelecimento, Produto, Endereco, \
     Bairro, FormaPagamento, FormaEntrega, Notificacao
@@ -174,7 +174,7 @@ def submit_pedido(request):
     message = make_message(pedido)
     n = Notificacao(type_message='NOVO_PEDIDO', to=pedido.estabelecimento.usuario, message=message)
     n.save()
-    return redirect('/')
+    return redirect('/acompanhar-pedido/'+str(pedido.pk))
 
 
 def make_message(pedido):
@@ -189,8 +189,15 @@ def make_message(pedido):
     return message
 
 
-class AcompanharPedido(LoginRequiredMixin, TemplateView, LojaFocusMixin):
-    template_name = ''
+class AcompanharPedido(LoginRequiredMixin, DetailView):
+    template_name = 'loja/acompanha_pedido.html'
+    model = Pedido
+    context_object_name = 'pedido_obj'
+
 
     def get(self, request, *args, **kwargs):
         return super(AcompanharPedido, self).get(request, *args, **kwargs)
+
+
+class MeusPedidos(LoginRequiredMixin, TemplateView, LojaFocusMixin):
+    template_name = 'loja/meus_pedidos.html'

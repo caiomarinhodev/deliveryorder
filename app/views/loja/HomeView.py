@@ -119,15 +119,18 @@ def script(request):
 # Implementar conclusao e submissao de Pedido pelo cliente. (45min) OK
 # Implementar Notificacao de Pedido para Loja (painel)  (1h30) OK
 
-# Link no Menu para Focus Geral (10min)
-# Implementar tela de Acompanhar Pedido. (2h)
+# Link no Menu para Focus Geral (10min) OK
+# Inserir carrinho com redirect para as compras do Usuario; (50min) OK
+# Implementar tela de Acompanhar Pedido. (2h) OK
+# Implementar tela de Meus Pedidos (1h) OK
+# Implementar tela de Ver Pedido Realizado (30min) OK
 # Implementar Aceitar, Rejeitar Pedido com set na tela de acompanhar pedido (2h)
-# Implementar Lançamento de Pedido para Focus Geral (3h30)
-# Implementar Alerta na Cozinha da Focus Geral (2h)
 # Implementar Configuracao de Loja (1h)
 # Implementar Check de enviar pedido se e sommente se loja ONLINE. (10min)
 # Implementar Random na vitrine de lojas Online (1h)
-# Implementar Relatorios Simples para a Loja, de Vendas (2h)
+# Implementar Relatorios Simples no Dashboard para a Loja, de Vendas (45min)
+# Implementar Lançamento de Pedido para Focus Geral (3h30)
+# Implementar Alerta na Cozinha da Focus Geral (2h)
 
 # Implementar API (20h)
 

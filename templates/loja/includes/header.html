@@ -22,28 +22,20 @@
                     </div>
 
                     <div class="login">
-                        <div class="row">
-                            {% if user.is_authenticated %}
-                                {% if user.cliente %}
-                                    <div class="col-xs-6">
-                                        Olá, {{ user.first_name }}
-                                    </div>
-                                {% else %}
-                                    <div class="col-xs-6">
-                                        <a href="{% url 'dashboard' %}"><i class="fa fa-sign-in"></i>
-                                            <span class="hidden-xs text-uppercase">Painel</span></a>
-                                    </div>
-                                {% endif %}
-
-                                <div class="col-xs-6">
-                                    <a href="{% url "auth_logout" %}"><i class="fa fa-sign-in"></i>
-                                        <span class="hidden-xs text-uppercase">Log out</span></a>
-                                </div>
+                        {% if user.is_authenticated %}
+                            {% if user.cliente %}
                             {% else %}
-                                <a href="{% url "choose_login" %}"><i class="fa fa-sign-in"></i>
-                                    <span class="hidden-xs text-uppercase">Log in ou Registro</span></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <a href="{% url 'dashboard' %}"><i class="fa fa-sign-in"></i>
+                                    <span class="hidden-xs text-uppercase">Painel</span></a>
                             {% endif %}
-                        </div>
+
+                            <a href="{% url "auth_logout" %}"><i class="fa fa-sign-in"></i>
+                                <span class="hidden-xs text-uppercase">Log out</span></a>
+                        {% else %}
+                            <a href="{% url "choose_login" %}"><i class="fa fa-sign-in"></i>
+                                <span class="hidden-xs text-uppercase">Log in ou Registro</span></a> &nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;
+                        {% endif %}
                     </div>
 
                 </div>
@@ -65,8 +57,9 @@ _________________________________________________________ -->
 
                     <a class="navbar-brand home" href="{% url 'home' %}">
 
-                        <h1 style="margin-top: 2px;"> <span id="logo_2"><img src='{% static 'img/logo_png.png' %}' class="" style="max-height: 30px;"
-                                   alt="logo"/> Focus Delivery</span></h1>
+                        <h1 style="margin-top: 2px;"> <span id="logo_2"><img src='{% static 'img/logo_png.png' %}'
+                                                                             class="" style="max-height: 30px;"
+                                                                             alt="logo"/> Focus Delivery</span></h1>
                     </a>
 
                     <div class="navbar-buttons">
@@ -108,17 +101,24 @@ _________________________________________________________ -->
                                 </li>
                             </ul>
                         </li>
-                        {% if user.is_authenticate %}
-                            {% if user.cliente %}
-                                <li id="login">
-                                    <a href="#">Olá, {{ user.first_name }}</a>
-                                </li>
+                        {% if user.cliente %}
+                            <li id="pedidos">
+                                <a href="{% url 'meus_pedidos' %}">
+                                    <i class="fa fa-shopping-cart">
+                                        {% if pedido_obj %}
+                                            <label class="label label-default">
+                                                1
+                                            </label>
+                                        {% endif %}</i>Meus Pedidos</a>
+                            </li>
+                            <li id="login">
+                                <a href="#">Olá, {{ user.first_name }}</a>
+                            </li>
 
-                            {% else %}
-                                <li id="login">
-                                    <a href="{% url 'dashboard' %}">ACESSAR PAINEL</a>
-                                </li>
-                            {% endif %}
+                        {% elif user.estabelecimento %}
+                            <li id="login">
+                                <a href="{% url 'dashboard' %}">ACESSAR PAINEL</a>
+                            </li>
                         {% else %}
                             <li id="login">
                                 <a id="login" href="{% url 'choose_login' %}">Login</a>

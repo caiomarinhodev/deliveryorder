@@ -17,7 +17,7 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 
-from app.views.loja.CarrinhoView import add_cart, FinalizaPedido, submit_pedido
+from app.views.loja.CarrinhoView import add_cart, FinalizaPedido, submit_pedido, AcompanharPedido, MeusPedidos
 from app.views.loja.CarrinhoView import remove_cart
 from app.views.loja.LoginView import *
 from app.views.painel.dashboard.DashboardView import DashboardPedidosListView
@@ -91,16 +91,14 @@ urlpatterns = [
     # url(r'^$', AppView.as_view(), name='home'),
 
     url(r'^add-cart/(?P<id_loja>[0-9]+)/$', add_cart, name='add_cart'),
-
+    url(r'finaliza-pedido/$', FinalizaPedido.as_view(), name='finaliza_pedido'),
+    url(r'acompanhar-pedido/(?P<pk>[0-9]+)/$', AcompanharPedido.as_view(), name='acompanhar_pedido'),
+    url(r'submit-pedido/$', submit_pedido, name='submit_pedido'),
+    url(r'^notificacao/pedido/$', notificacao_pedido, name="notificacao_pedido"),
     url(r'^delete-pedido/(?P<pk>[0-9]+)/$', remove_cart, name='delete_pedido'),
+    url(r'meus-pedidos/$', MeusPedidos.as_view(), name='meus_pedidos'),
 
     url(r'set-online/$', SetOnlineView.as_view(), name='set_online'),
-
-    url(r'finaliza-pedido/$', FinalizaPedido.as_view(), name='finaliza_pedido'),
-
-    url(r'submit-pedido/$', submit_pedido, name='submit_pedido'),
-
-    url(r'^notificacao/pedido/$', notificacao_pedido, name="notificacao_pedido"),
 
     url(r'^script/bairro/$', script, name='script_bairro'),
 
