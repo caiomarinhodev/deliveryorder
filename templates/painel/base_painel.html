@@ -126,7 +126,7 @@
                             </label>
                         </div>
                     {% else %}
-                       <div class="checkbox checbox-switch switch-success">
+                        <div class="checkbox checbox-switch switch-success">
                             <label>
                                 <input type="checkbox" name="isonline"/>
                                 <span></span>
@@ -134,14 +134,14 @@
                             </label>
                         </div>
                     {% endif %}
-                <script>
-                    $(document).ready(function () {
-                       $('[name=isonline]').change(function () {
-                           $('#loading').show();
-                           window.location.href='{% url 'set_online' %}';
-                       })
-                    });
-                </script>
+                    <script>
+                        $(document).ready(function () {
+                            $('[name=isonline]').change(function () {
+                                $('#loading').show();
+                                window.location.href = '{% url 'set_online' %}';
+                            })
+                        });
+                    </script>
                 </div>
             </div>
             <form action="#" method="get" class="sidebar-form">
@@ -151,7 +151,8 @@
         </section>
         <!-- /.sidebar -->
     </aside>
-
+    <audio id="alert" src="{% static 'alert.wav' %}" controls="false" preload="auto" autobuffer
+           style="display: none;"></audio>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
 
@@ -214,6 +215,35 @@
 
 <script src="{% static "dist/js/chartReport.js" %}"></script>
 
+<div id="notify"></div>
+
+
+<script>
+    function play(soundobj) {
+        var thissound = document.getElementById(soundobj);
+        thissound.play();
+    }
+</script>
+
+<script>
+    $(document).ready(function () {
+        window.setInterval(function () {
+            $.ajax({
+                url: "{% url 'notificacao_pedido' %}",
+                type: "GET", // http method
+                success: function (data) {
+                    $('#notify').html(data);
+                },
+                complete: function () {
+                    $('#loading').hide();
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }, 3000);
+    });
+</script>
 
 
 {% if messages %}

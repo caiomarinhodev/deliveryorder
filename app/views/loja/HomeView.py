@@ -117,18 +117,19 @@ def script(request):
 # Implementar subtotal e calculos no model Pedido. (30min)  OK
 # Implementar atualizacao de total em finalizar entrega subtotal + entrega. (20min) OK
 # Implementar conclusao e submissao de Pedido pelo cliente. (45min) OK
+# Implementar Notificacao de Pedido para Loja (painel)  (1h30) OK
 
-# Implementar Notificacao de Pedido para Loja (painel)  (1h30)
-
+# Link no Menu para Focus Geral (10min)
 # Implementar tela de Acompanhar Pedido. (2h)
 # Implementar Aceitar, Rejeitar Pedido com set na tela de acompanhar pedido (2h)
 # Implementar Lançamento de Pedido para Focus Geral (3h30)
 # Implementar Alerta na Cozinha da Focus Geral (2h)
-
-# Implementar Relatorios Simples para a Loja, de Vendas (2h)
 # Implementar Configuracao de Loja (1h)
 # Implementar Check de enviar pedido se e sommente se loja ONLINE. (10min)
 # Implementar Random na vitrine de lojas Online (1h)
+# Implementar Relatorios Simples para a Loja, de Vendas (2h)
+
+# Implementar API (20h)
 
 # ---------------------------------------
 # Apos as sucessivas adicoes no carrinho, o cliente vai para a tela de inserir dados de entrega,
@@ -145,4 +146,4 @@ def script(request):
 
 # Implementar a notificacao do Motoboy, placa e informacoes dele para o Cliente que pediu. (8h)
 
-# Implementar API (20h)
+# Configuracao Loja: login,senha focus geral; foto; primeiro e ultimo nome; cnpj; notificar cozinha boolean; chamar motoboy boolean;

@@ -1,0 +1,24 @@
+<script>
+    $(document).ready(function () {
+        {% if notificacao.type_message == 'NOVO_PEDIDO' %}
+            play('alert');
+            swal({
+                title: "ALERTA!",
+                text: '{{ notificacao.message }}',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Aceitar",
+                cancelButtonText: "Rejeitar",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            }, function (isConfirm) {
+                if (isConfirm) {
+                    swal("Confirmado!", "Vamos enviar para sua cozinha e pedir um motoboy", "success");
+                } else {
+                    swal("Pedido Cancelado", "Vamos notificar o cliente", "error");
+                }
+            });
+        {% endif %}
+    });
+</script>

@@ -6,7 +6,7 @@ from django.shortcuts import redirect
 from django.views.generic import TemplateView, RedirectView
 
 from app.models import ItemPedido, Opcional, OpcionalChoice, Cliente, Pedido, Estabelecimento, Produto, Endereco, \
-    Bairro, FormaPagamento, FormaEntrega
+    Bairro, FormaPagamento, FormaEntrega, Notificacao
 from app.views.mixins.Mixin import LojaFocusMixin
 
 
@@ -164,11 +164,6 @@ def submit_pedido(request):
     #     return redirect('/finaliza-pedido/')
     pedido.forma_pagamento = forma_pagamento
     # pedido.forma_entrega = forma_entrega
-    if troco:
-        pedido.troco = troco
-    else:
-        messages.error(request, u'Insira o valor do Troco')
-        return redirect('/finaliza-pedido/')
     if endereco:
         pedido.endereco_entrega = endereco
     else:
@@ -176,7 +171,22 @@ def submit_pedido(request):
         return redirect('/finaliza-pedido/')
     pedido.save()
     messages.success(request, 'Pedido Realizado com Sucesso')
+    message = make_message(pedido)
+    n = Notificacao(type_message='NOVO_PEDIDO', to=pedido.estabelecimento.usuario, message=message)
+    n.save()
     return redirect('/')
+
+
+def make_message(pedido):
+    message = u'Cliente: ' + unicode(pedido.cliente.usuario.first_name) + u' ' + unicode(
+        pedido.cliente.usuario.last_name) + u' ' + u'Telefone: ' + unicode(
+        pedido.cliente.telefone) + u' ' + u'Pedido:' + u' '
+    for it in pedido.itempedido_set.all():
+        message += u' ' + unicode(it.produto.nome) + u'('
+        for opc in it.opcionalchoice_set.all():
+            message += unicode(opc.opcional.nome) + u','
+        message += u') '
+    return message
 
 
 class AcompanharPedido(LoginRequiredMixin, TemplateView, LojaFocusMixin):
