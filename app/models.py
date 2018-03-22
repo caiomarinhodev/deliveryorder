@@ -182,6 +182,8 @@ class Estabelecimento(TimeStamped, BaseAddress):
 
 STATUS = (
     ('AGUARDANDO', 'AGUARDANDO'),
+    ('ACEITO', 'ACEITO'),
+    ('REJEITADO', 'REJEITADO'),
     ('PREPARANDO', 'PREPARANDO'),
     ('ENTREGANDO', 'ENTREGANDO'),
     ('ENTREGUE', 'ENTREGUE'),
@@ -410,6 +412,7 @@ class Notificacao(TimeStamped):
     to = models.ForeignKey(User, on_delete=models.CASCADE)
     type_message = models.CharField(choices=type_notification, max_length=100)
     is_read = models.BooleanField(default=False)
+    pedido = models.ForeignKey(Pedido, blank=True, null=True)
 
     def __unicode__(self):
         return u'Para: %s' % self.to

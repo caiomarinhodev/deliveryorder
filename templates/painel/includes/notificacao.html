@@ -1,24 +1,57 @@
+{% load filters %}
 <script>
     $(document).ready(function () {
         {% if notificacao.type_message == 'NOVO_PEDIDO' %}
-            play('alert');
-            swal({
-                title: "ALERTA!",
-                text: '{{ notificacao.message }}',
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonClass: "btn-danger",
-                confirmButtonText: "Aceitar",
-                cancelButtonText: "Rejeitar",
-                closeOnConfirm: false,
-                closeOnCancel: false
-            }, function (isConfirm) {
-                if (isConfirm) {
-                    swal("Confirmado!", "Vamos enviar para sua cozinha e pedir um motoboy", "success");
-                } else {
-                    swal("Pedido Cancelado", "Vamos notificar o cliente", "error");
-                }
-            });
+            {% if notificacao.pedido %}
+                play('alert');
+                swal({
+                    title: "ALERTA!",
+                    text: '{{ notificacao.message }}',
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonClass: "btn-danger",
+                    confirmButtonText: "Aceitar",
+                    cancelButtonText: "Rejeitar",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                }, function (isConfirm) {
+                    if (isConfirm) {
+                        $.ajax({
+                            url: 'http://localhost:8080/create-pedido',
+                            type: "GET",
+                            crossDomain: true,
+                            dataType: 'jsonp',
+                            data: {
+                                "bairro": "{{ notificacao.pedido.endereco_entrega.bairro.nome }}",
+                                "username": "{{ notificacao.pedido.estabelecimento.usuario.username }}",
+                                "cliente": "{{ notificacao.pedido.cliente.usuario.first_name }} {{ pedido.cliente.usuario.last_name }}",
+                                "telefone": "{{ notificacao.pedido.cliente.telefone }}",
+                                "endereco": "{{ notificacao.pedido.endereco_entrega.endereco }}",
+                                "observacoes": " ",
+                                "numero": "{{ notificacao.pedido.endereco_entrega.numero }}",
+                                "complemento": "{{ notificacao.pedido.endereco_entrega.complemento }}",
+                                "itens": "{{ notificacao.pedido|get_itens }}"
+                            },
+                            complete: function (d) {
+                                window.location.href = '{% url 'aceitar_pedido' notificacao.pedido.id %}'
+                            },
+                        });
+                    } else {
+                        swal({
+                            title: 'Pedido Cancelado',
+                            text: "Vamos notificar o cliente",
+                            type: 'error',
+                            confirmButtonText: "OK",
+                            closeOnConfirm: false,
+                            showLoaderOnConfirm: true
+                        }, function () {
+                            setTimeout(function () {
+                                window.location.href = '{% url 'rejeitar_pedido' notificacao.pedido.id %}'
+                            }, 1000);
+                        });
+                    }
+                });
+            {% endif %}
         {% endif %}
     });
 </script>

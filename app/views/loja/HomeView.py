@@ -124,13 +124,17 @@ def script(request):
 # Implementar tela de Acompanhar Pedido. (2h) OK
 # Implementar tela de Meus Pedidos (1h) OK
 # Implementar tela de Ver Pedido Realizado (30min) OK
+
+# Bug: Pode Alterar valor do bairro por JS na compra.
+# Bug: SEM CONTROLE SE PERMANECER NESSA GAMBIARRA.
+
 # Implementar Aceitar, Rejeitar Pedido com set na tela de acompanhar pedido (2h)
 # Implementar Configuracao de Loja (1h)
 # Implementar Check de enviar pedido se e sommente se loja ONLINE. (10min)
 # Implementar Random na vitrine de lojas Online (1h)
 # Implementar Relatorios Simples no Dashboard para a Loja, de Vendas (45min)
 # Implementar Lançamento de Pedido para Focus Geral (3h30)
-# Implementar Alerta na Cozinha da Focus Geral (2h)
+# Implementar Alerta na Cozinha da Focus Geral (2h) OK
 
 # Implementar API (20h)
 

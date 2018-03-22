@@ -172,9 +172,9 @@ def submit_pedido(request):
     pedido.save()
     messages.success(request, 'Pedido Realizado com Sucesso')
     message = make_message(pedido)
-    n = Notificacao(type_message='NOVO_PEDIDO', to=pedido.estabelecimento.usuario, message=message)
+    n = Notificacao(type_message='NOVO_PEDIDO', to=pedido.estabelecimento.usuario, message=message, pedido=pedido)
     n.save()
-    return redirect('/acompanhar-pedido/'+str(pedido.pk))
+    return redirect('/acompanhar-pedido/' + str(pedido.pk))
 
 
 def make_message(pedido):
@@ -194,8 +194,9 @@ class AcompanharPedido(LoginRequiredMixin, DetailView):
     model = Pedido
     context_object_name = 'pedido_obj'
 
-
     def get(self, request, *args, **kwargs):
+        if 'pedido' in self.request.session:
+            del self.request.session['pedido']
         return super(AcompanharPedido, self).get(request, *args, **kwargs)
 
 

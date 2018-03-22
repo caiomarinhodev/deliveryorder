@@ -23,7 +23,7 @@ from app.views.loja.LoginView import *
 from app.views.painel.dashboard.DashboardView import DashboardPedidosListView
 from app.views.painel.login.LoginView import LojaLoginView, LojaLogoutView
 from app.views.painel.categoria.CategoriaView import *
-from app.views.painel.pedido.PedidoView import notificacao_pedido
+from app.views.painel.pedido.PedidoView import notificacao_pedido, aceitar_pedido, rejeitar_pedido
 from app.views.painel.produto.ProdutoView import *
 from app.views.painel.opcional.OpcionalView import *
 from app.views.painel.foto_produto.FotoProdutoView import *
@@ -80,6 +80,9 @@ urlpatterns = [
     url(r'^classificacao/list/$', ClassificacaoListView.as_view(), name='list_classificacao'),
 
     url(r'^notificacao/list/$', NotificacaoListView.as_view(), name='list_notificacao'),
+
+    url(r'^aceitar-pedido/(?P<pk>[0-9]+)/$', aceitar_pedido, name='aceitar_pedido'),
+    url(r'^rejeitar-pedido/(?P<pk>[0-9]+)/$', rejeitar_pedido, name='rejeitar_pedido'),
 
     url(r'^$', HomeView.as_view(), name='home'),
 

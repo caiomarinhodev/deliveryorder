@@ -26,3 +26,17 @@ def is_madrugada(user):
         return False
     except (ValueError, ZeroDivisionError, Exception):
         return 0
+
+
+@register.filter
+def get_itens(pedido):
+    try:
+        message = u''
+        for it in pedido.itempedido_set.all():
+            message += u' ' + unicode(it.produto.nome) + u'('
+            for opc in it.opcionalchoice_set.all():
+                message += unicode(opc.opcional.nome) + u','
+            message += u') '
+        return message
+    except (Exception,):
+        return u''
